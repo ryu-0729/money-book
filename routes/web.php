@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// Userのリソースルート
+Route::resource('users', 'UserController');
+// Itemのリソースルート
+Route::resource('items', 'ItemController');
+// BuyItemのリソースルート
+Route::resource('buy_items', 'BuyItemController');
+// UserGoalのリソースルート
+Route::resource('user_goals', 'UserGoalController');
