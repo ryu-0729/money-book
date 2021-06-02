@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBuyItemTable extends Migration
+class CreateUserGoalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateBuyItemTable extends Migration
      */
     public function up()
     {
-        Schema::create('buy_item', function (Blueprint $table) {
+        Schema::create('user_goals', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('name');
-            $table->integer('quantity')->unsigned();
-            $table->integer('price')->unsigned();
-            $table->integer('month')->unsigned();
+            $table->string('title')->nullable();
+            $table->integer('price')->unsigned()->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
 
@@ -37,6 +35,6 @@ class CreateBuyItemTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('buy_item');
+        Schema::dropIfExists('user_goals');
     }
 }
