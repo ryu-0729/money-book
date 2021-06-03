@@ -38,4 +38,23 @@ class UserTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    // 自身の編集ページへのアクセス
+    public function testGetEdit()
+    {
+        $response = $this->actingAs($this->user)
+            ->get('/users/' . $this->user->id . '/edit');
+
+        $response->assertStatus(200)
+            ->assertViewIs('users.edit');
+    }
+
+    // 自身以外の編集ページへのアクセス
+    public function testNonGetEdit()
+    {
+        $response = $this->actingAs($this->user)
+            ->get('/users/' . $this->anotherUser->id . '/edit');
+
+        $response->assertStatus(403);
+    }
 }
