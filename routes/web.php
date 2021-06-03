@@ -18,8 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-// Userのリソースルート
-Route::resource('users', 'UserController');
+
+Route::middleware(['auth'])->group(function () {
+    // Userのリソースルート(create,storeは不要のため取り除く)
+    Route::resource('users', 'UserController')->except([
+        'create', 'store'
+    ]);
+});
+
+
 // Itemのリソースルート
 Route::resource('items', 'ItemController');
 // BuyItemのリソースルート
