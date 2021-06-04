@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User; // App\Models\Userをインポート
+use Illuminate\Support\Str; // Str::randomを使用したいため追記
 
 class UserTest extends TestCase
 {
@@ -30,7 +31,7 @@ class UserTest extends TestCase
             ->assertViewIs('users.show');
     }
 
-    // 自身の詳細以外にアクセス
+    // 他人の詳細以外にアクセス
     public function testNonGetShow()
     {
         $response = $this->actingAs($this->user)
@@ -49,12 +50,75 @@ class UserTest extends TestCase
             ->assertViewIs('users.edit');
     }
 
-    // 自身以外の編集ページへのアクセス
+    // 他人編集ページへのアクセス
     public function testNonGetEdit()
     {
         $response = $this->actingAs($this->user)
             ->get('/users/' . $this->anotherUser->id . '/edit');
 
         $response->assertStatus(403);
+    }
+
+    // 自身の更新処理
+    public function testPutUpdate()
+    {
+        $updateData = [
+            'name' => 'update User',
+        ];
+
+        $response = $this->actingAs($this->user)
+            ->put('/users/' . $this->user->id, $updateData);
+
+        $response->assertStatus(302)
+            ->assertRedirect('/users/' . $this->user->id);
+
+        $this->assertDatabaseHas('users', $updateData);
+    }
+
+    // 他人の更新処理
+    public function testNonPutUpdate()
+    {
+        $updateData = [
+            'name' => 'update User',
+        ];
+
+        $response = $this->actingAs($this->user)
+            ->put('/users/' . $this->anotherUser->id, $updateData);
+
+        $response->assertStatus(403);
+    }
+
+    // 自身の更新で名前が空白
+    public function testPutUpdateEmptyName()
+    {
+        $updateData = [
+            'name' => '',
+        ];
+
+        $response = $this->actingAs($this->user)
+            ->from('/users/' . $this->user->id . '/edit')
+            ->put('/users/' . $this->user->id, $updateData);
+
+        $response->assertSessionHasErrors(['name' => '名前は必須項目です']);
+
+        $response->assertStatus(302)
+            ->assertRedirect('/users/' . $this->user->id . '/edit');
+    }
+
+    // 自身の更新で名前が255字以上
+    public function testPutUpdateMaxLength()
+    {
+        $updateData = [
+            'name' => Str::random(256),
+        ];
+
+        $response = $this->actingAs($this->user)
+            ->from('/users/' . $this->user->id . '/edit')
+            ->put('/users/' . $this->user->id, $updateData);
+
+        $response->assertSessionHasErrors(['name' => '名前は255文字以内でお願いします']);
+
+        $response->assertStatus(302)
+            ->assertRedirect('/users/' . $this->user->id . '/edit');
     }
 }

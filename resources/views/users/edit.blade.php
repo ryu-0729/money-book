@@ -7,6 +7,16 @@
                 <div class="card-header">{{ __('マイページ編集') }}</div>
 
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     {!! Form::open(['action' => ['UserController@update', $user->id], 'method' => 'put']) !!}
 
                         <div class="form-group row">
@@ -14,14 +24,6 @@
                             
                             <div class="col-md-6">
                                 {{ Form::text('name', $user->name, ['class' => 'form-control']) }}
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            {{ Form::label('email', 'メールアドレス', ['class' => 'col-md-4 col-form-label text-md-right']) }}
-
-                            <div class="col-md-6">
-                                {{ Form::email('email', $user->email, ['class' => 'form-control']) }}
                             </div>
                         </div>
 
