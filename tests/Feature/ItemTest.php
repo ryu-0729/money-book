@@ -139,4 +139,16 @@ class ItemTest extends TestCase
         $response->assertStatus(302)
             ->assertRedirect('/items/' . $this->item->id . '/edit');
     }
+
+    // 登録商品削除
+    public function testSoftDelete()
+    {
+        $this->assertDatabaseHas('items', $this->item->toArray());
+
+        $response = $this->actingAs($this->user)
+            ->delete('/items/' . $this->item->id);
+
+        $response->assertStatus(302)
+            ->assertRedirect('/items');
+    }
 }
