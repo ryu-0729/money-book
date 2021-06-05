@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -7,14 +8,16 @@
                 <thead>
                     <tr>
                         <th scope="col">{{ __('商品名') }}</th>
-                        <th scope="col">{{ __('1個あたりの金額') }}</th>
+                        <th scope="col">{{ __('商品価格') }}</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     @forelse ($userItems as $item)
                         <tr>
-                            <th>{{ $item->name }}</th>
+                            <th>
+                                <a href="{{ route('items.show', $item->id) }}">{{ $item->name }}</a>
+                            </th>
                             <th>{{ $item->price }}{{ __('円') }}</th>
                         </tr>
                     @empty

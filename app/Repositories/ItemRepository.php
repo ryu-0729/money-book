@@ -11,7 +11,7 @@ class ItemRepository implements RepositoryInterface
     public function getAll()
     {
         $items = Auth::user()->items()
-            ->select('name', 'price')->paginate(20);
+            ->select('id', 'name', 'price')->paginate(20);
         return $items;
     }
 }

@@ -11,12 +11,12 @@
             @endif
 
             <div class="card">
-                <div class="card-header">{{ __('マイページ') }}</div>
+                <div class="card-header">{{ __('商品詳細') }}</div>
 
                 <div class="card-body">
-                    <h5 class="card-title">{{ $user->name }}</h5>
-                    <p class="card-text">{{ $user->email }}</p>
-                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">{{ __('編集') }}</a>
+                    <h5 class="card-title">{{ __('商品名：')}}{{ $item->name }}</h5>
+                    <p class="card-text">{{ __('商品価格：') }}{{ $item->price }}{{ __('円') }}</p>
+                    <a href="{{ route('items.edit', $item->id) }}" class="btn btn-primary">{{ __('編集') }}</a>
                 </div>
             </div>
         </div>
