@@ -24,12 +24,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', 'UserController')->except([
         'create', 'store'
     ]);
+    Route::resources([
+        // Itemのリソースルート
+        'items' => 'ItemController',
+        // BuyItemのリソースルート
+        'buy_items' => 'BuyItemController',
+        // UserGoalのリソースルート
+        'user_goals' => 'UserGoalController',
+    ]);
 });
-
-
-// Itemのリソースルート
-Route::resource('items', 'ItemController');
-// BuyItemのリソースルート
-Route::resource('buy_items', 'BuyItemController');
-// UserGoalのリソースルート
-Route::resource('user_goals', 'UserGoalController');
