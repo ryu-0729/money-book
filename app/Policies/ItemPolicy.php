@@ -30,12 +30,12 @@ class ItemPolicy
         return $user->id === $item->user_id;
     }
 
-    /* public function delete(User $user, Item $item)
+    public function delete(User $user, Item $item)
     {
-        //
+        return $user->id === $item->user_id;
     }
 
-    public function restore(User $user, Item $item)
+    /* public function restore(User $user, Item $item)
     {
         //
     }

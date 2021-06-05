@@ -60,6 +60,7 @@ class ItemController extends Controller
 
     public function destroy(Item $item)
     {
+        $this->authorize($item);
         $item->delete();
         return redirect()->route('items.index');
     }
