@@ -4,82 +4,64 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use App\Repositories\ItemRepository;
+use App\Http\Requests\StoreItem; // StoreItemバリデーションを利用
+use App\Http\Requests\UpdateItem; // UpdateItemバリデーションを利用
+use Illuminate\Support\Facades\Auth; // ログインユーザーを取得したいため追記
 
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $itemRepository;
+
+    public function __construct(ItemRepository $itemRepository)
+    {
+        $this->itemRepository = $itemRepository;
+    }
+
     public function index()
     {
-        //
+        $userItems = $this->itemRepository->getAll();
+        return view('items.index', compact('userItems'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('items.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreItem $request)
     {
-        //
+        $authUser = Auth::user();
+        $authUser->items()->create($request->validated());
+
+        return redirect()->route('items.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
     public function show(Item $item)
     {
-        //
+        $this->authorize($item);
+        return view('items.show', compact('item'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Item $item)
     {
-        //
+        $this->authorize($item);
+        return view('items.edit', compact('item'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Item $item)
+    public function update(UpdateItem $request, Item $item)
     {
-        //
+        $this->authorize($item);
+        $item->update($request->validated());
+
+        return redirect()->route('items.show', [$item])
+            ->with('message', '登録商品を更新しました');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Item $item)
     {
-        //
+        $this->authorize($item);
+        $item->delete();
+        return redirect()->route('items.index');
     }
 }
