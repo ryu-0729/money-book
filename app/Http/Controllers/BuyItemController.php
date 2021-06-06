@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\BuyItem;
 use Illuminate\Http\Request;
 use App\Repositories\BuyItemRepository; // BuyItemRepositoryを使用
+use App\Models\Item;
+use App\Http\Requests\StoreBuyItem; // StoreBuyItemバリデーションを利用
+use Illuminate\Support\Facades\Auth; // ログインユーザーを取得したいため追記
 
 class BuyItemController extends Controller
 {
     private $buyItemRepository;
+    private $item;
 
-    public function __construct(BuyItemRepository $buyItemRepository)
+    public function __construct(BuyItemRepository $buyItemRepository, Item $item)
     {
         $this->buyItemRepository = $buyItemRepository;
+        $this->item = $item;
     }
 
     public function index()
@@ -21,25 +26,23 @@ class BuyItemController extends Controller
         return view('buy_items.index', compact('userBuyItems'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $itemsName = $this->item->getAuthUserItems();
+        return view('buy_items.create', compact('itemsName'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreBuyItem $request)
     {
-        //
+        $authUser = Auth::user();
+        $authUser->buyItems()->create([
+            'name' => $request->name,
+            'quantity' => $request->quantity,
+            'price' => $this->item->getPrice($request->name, $request->quantity),
+            'month' => $request->month,
+        ]);
+
+        return redirect()->route('buy_items.index');
     }
 
     public function show(BuyItem $buyItem)

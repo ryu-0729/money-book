@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\BuyItem; // App\Models\BuyItemをインポート
 use App\Models\User; // App\Models\Userをインポート
+use App\Models\Item; // App\Models\Itemをインポート
 
 class BuyItemTest extends TestCase
 {
@@ -18,6 +19,9 @@ class BuyItemTest extends TestCase
 
         $this->user = factory(User::class)->create();
         $this->buyItem = factory(BuyItem::class)->create([
+            'user_id' => $this->user->id
+        ]);
+        $this->item = factory(Item::class)->create([
             'user_id' => $this->user->id
         ]);
         $this->anotherUser = factory(User::class)->create();
@@ -40,5 +44,37 @@ class BuyItemTest extends TestCase
             ->get('/buy_items/' . $this->buyItem->id);
 
         $response->assertStatus(403);
+    }
+
+    // 購入商品登録ページへのアクセス
+    public function testGetCreate()
+    {
+        $response = $this->actingAs($this->user)
+            ->get('/buy_items/create');
+
+        $response->assertStatus(200)
+            ->assertViewIs('buy_items.create');
+    }
+
+    // 購入商品登録で個数が空白
+    public function testPostStoreEmptyQuantity()
+    {
+        $postBuyItem = [
+            'name' => $this->item->name,
+            'quantity' => '',
+            'price' => $this->item->price * 4,
+            'month' => 5
+        ];
+
+        $response = $this->actingAs($this->user)
+            ->from('/buy_items/create')
+            ->post('/buy_items', $postBuyItem);
+
+        $response->assertSessionHasErrors([
+            'quantity' => '個数は必須です',
+        ]);
+
+        $response->assertStatus(302)
+            ->assertRedirect('/buy_items/create');
     }
 }
