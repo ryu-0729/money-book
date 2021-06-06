@@ -23,14 +23,14 @@ class BuyItemPolicy
     /* public function create(User $user)
     {
         //
-    }
+    } */
 
     public function update(User $user, BuyItem $buyItem)
     {
-        //
+        return $user->id === $buyItem->user_id;
     }
 
-    public function delete(User $user, BuyItem $buyItem)
+    /* public function delete(User $user, BuyItem $buyItem)
     {
         //
     }

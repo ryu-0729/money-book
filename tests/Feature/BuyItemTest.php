@@ -63,7 +63,7 @@ class BuyItemTest extends TestCase
             'name' => $this->item->name,
             'quantity' => '',
             'price' => $this->item->price * 4,
-            'month' => 5
+            'month' => '',
         ];
 
         $response = $this->actingAs($this->user)
@@ -72,9 +72,41 @@ class BuyItemTest extends TestCase
 
         $response->assertSessionHasErrors([
             'quantity' => '個数は必須です',
+            'month' => '購入月は必須です'
         ]);
 
         $response->assertStatus(302)
             ->assertRedirect('/buy_items/create');
+    }
+
+    // 他人の編集ページにアクセス
+    public function testNonGetEdit()
+    {
+        $response = $this->actingAs($this->anotherUser)
+            ->get('/buy_items/' . $this->buyItem->id . '/edit');
+
+        $response->assertStatus(403);
+    }
+
+    // 更新で個数、月が空白
+    public function testPutUpdateEmptyQuantityAndMonth()
+    {
+        $putBuyItem = [
+            'quantity' => '',
+            'price' => $this->item->price * 4,
+            'month' => '',
+        ];
+
+        $response = $this->actingAs($this->user)
+            ->from('/buy_items/' . $this->buyItem->id . '/edit')
+            ->put('/buy_items/' . $this->buyItem->id, $putBuyItem);
+
+        $response->assertSessionHasErrors([
+            'quantity' => '個数は必須です',
+            'month' => '購入月は必須です'
+        ]);
+
+        $response->assertStatus(302)
+            ->assertRedirect('/buy_items/' . $this->buyItem->id . '/edit');
     }
 }

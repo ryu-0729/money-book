@@ -17,7 +17,7 @@
                     <h5 class="card-title">{{ __('商品名：')}}{{ $buyItem->name }}</h5>
                     <p class="card-text">{{ __('購入個数：') }}{{ $buyItem->quantity }}{{ __('個') }}</p>
                     <p class="card-text">{{ __('合計金額：') }}{{ $buyItem->price }}{{ __('円') }}</p>
-                    <a href="#" class="btn btn-primary">{{ __('編集') }}</a>
+                    <a href="{{ route('buy_items.edit', $buyItem->id) }}" class="btn btn-primary">{{ __('編集') }}</a>
                 </div>
             </div>
         </div>
