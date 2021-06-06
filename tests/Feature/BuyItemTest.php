@@ -32,4 +32,13 @@ class BuyItemTest extends TestCase
         $response->assertStatus(200)
             ->assertViewIs('buy_items.index');
     }
+
+    // 他人の詳細ページへのアクセス
+    public function testNonGetShow()
+    {
+        $response = $this->actingAs($this->anotherUser)
+            ->get('/buy_items/' . $this->buyItem->id);
+
+        $response->assertStatus(403);
+    }
 }

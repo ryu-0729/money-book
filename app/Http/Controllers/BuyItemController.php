@@ -42,15 +42,10 @@ class BuyItemController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\BuyItem  $buyItem
-     * @return \Illuminate\Http\Response
-     */
     public function show(BuyItem $buyItem)
     {
-        //
+        $this->authorize($buyItem);
+        return view('buy_items.show', compact('buyItem'));
     }
 
     /**

@@ -18,7 +18,7 @@
                     @forelse ($userBuyItems as $item)
                         <tr>
                             <th>
-                                <a href="#">{{ $item->name }}</a>
+                                <a href="{{ route('buy_items.show', $item->id) }}">{{ $item->name }}</a>
                             </th>
                             <th>{{ $item->quantity }}{{ __('個') }}</th>
                             <th>{{ $item->price }}{{ __('円') }}</th>
