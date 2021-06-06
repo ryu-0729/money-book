@@ -50,6 +50,10 @@
                             @endif
                         @else
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('buy_items.index') }}">{{ __('購入商品一覧へ') }}</a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('items.index') }}">{{ __('商品一覧') }}</a>
                             </li>
 

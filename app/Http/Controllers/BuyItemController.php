@@ -4,17 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\BuyItem;
 use Illuminate\Http\Request;
+use App\Repositories\BuyItemRepository; // BuyItemRepositoryを使用
 
 class BuyItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $buyItemRepository;
+
+    public function __construct(BuyItemRepository $buyItemRepository)
+    {
+        $this->buyItemRepository = $buyItemRepository;
+    }
+
     public function index()
     {
-        //
+        $userBuyItems = $this->buyItemRepository->getAll();
+        return view('buy_items.index', compact('userBuyItems'));
     }
 
     /**
