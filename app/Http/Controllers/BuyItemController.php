@@ -72,14 +72,10 @@ class BuyItemController extends Controller
             ->with('message', '購入商品を更新しました');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\BuyItem  $buyItem
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(BuyItem $buyItem)
     {
-        //
+        $this->authorize($buyItem);
+        $buyItem->delete();
+        return redirect()->route('buy_items.index');
     }
 }

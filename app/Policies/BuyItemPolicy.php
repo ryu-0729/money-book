@@ -30,12 +30,12 @@ class BuyItemPolicy
         return $user->id === $buyItem->user_id;
     }
 
-    /* public function delete(User $user, BuyItem $buyItem)
+    public function delete(User $user, BuyItem $buyItem)
     {
-        //
+        return $user->id === $buyItem->user_id;
     }
 
-    public function restore(User $user, BuyItem $buyItem)
+    /* public function restore(User $user, BuyItem $buyItem)
     {
         //
     }

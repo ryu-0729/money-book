@@ -18,6 +18,9 @@
                     <p class="card-text">{{ __('購入個数：') }}{{ $buyItem->quantity }}{{ __('個') }}</p>
                     <p class="card-text">{{ __('合計金額：') }}{{ $buyItem->price }}{{ __('円') }}</p>
                     <a href="{{ route('buy_items.edit', $buyItem->id) }}" class="btn btn-primary">{{ __('編集') }}</a>
+                    {!! Form::open(['action' => ['BuyItemController@destroy', $buyItem->id], 'method' => 'delete']) !!}
+                        {{ Form::submit('購入商品削除', ['class' => 'btn btn-danger']) }}
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
