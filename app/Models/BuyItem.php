@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class BuyItem extends Model
 {
     protected $fillable = [
-        'name', 'quantity', 'month',
+        'name', 'quantity', 'price', 'month',
     ];
 
     // Userモデルとのリレーション
