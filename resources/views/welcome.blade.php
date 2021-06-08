@@ -4,11 +4,15 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card text-center">
                 <div class="card-header">{{ __('ようこそ') }}</div>
 
                 <div class="card-body">
-                    {{ __('Money-Bookへ') }}
+                    <h5 class="card-title">{{ __('Money-Bookへ') }}</h5>
+                    <p class="card-text">{{ __('ログインまたは新規登録をしてください') }}</p>
+                    <a class="btn btn-primary" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <p>{{ __('or') }}</p>
+                    <a class="btn btn-primary" href="{{ route('register') }}">{{ __('Register') }}</a>
                 </div>
             </div>
         </div>
