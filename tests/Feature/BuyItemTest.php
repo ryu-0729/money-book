@@ -13,7 +13,7 @@ class BuyItemTest extends TestCase
 {
     use RefreshDatabase; //既存のデータに依存しないようにする
 
-    public function setUP() :void
+    public function setUp() :void
     {
         parent::setUp();
 
