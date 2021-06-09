@@ -10,7 +10,7 @@
                 </div>
             @endif
 
-            <div class="card">
+            <div class="card text-center">
                 <div class="card-header">{{ __('マイページ') }}</div>
 
                 <div class="card-body">
