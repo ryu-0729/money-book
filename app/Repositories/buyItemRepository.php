@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\BuyItem;
+use App\Models\BuyItem; // BuyItemをインポート
 use Illuminate\Support\Facades\Auth;
 
 class BuyItemRepository implements RepositoryInterface

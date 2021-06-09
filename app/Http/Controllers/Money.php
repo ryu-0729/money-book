@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BuyItem; // BuyItemをインポート
 use App\Repositories\BuyItemRepository;
-//use App\Repositories\BuyItemRepository;
 
 class Money extends Controller
 {
