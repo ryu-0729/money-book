@@ -4,6 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+
+            <h1>{{ __('商品一覧') }}</h1>
+
             <table class="table table-striped">
                 <thead>
                     <tr>
