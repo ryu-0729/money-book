@@ -5,7 +5,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+// ログインユーザーのみのルート
 Route::middleware(['auth'])->group(function () {
     // Userのリソースルート(create,storeは不要のため取り除く)
     Route::resource('users', 'UserController')->except([
