@@ -10,7 +10,8 @@ class BuyItemRepository implements RepositoryInterface
     public function getAll()
     {
         $buyItems = Auth::user()->buyItems()
-            ->select('id', 'name', 'quantity', 'price', 'month')
+            ->select('id', 'name', 'quantity', 'price', 'month', 'updated_at')
+            ->latest('updated_at')
             ->paginate(20);
 
         return $buyItems;
@@ -20,8 +21,9 @@ class BuyItemRepository implements RepositoryInterface
     public function searchMonth($month)
     {
         $buyItems = Auth::user()->buyItems()
-            ->select('id', 'name', 'quantity', 'price', 'month')
+            ->select('id', 'name', 'quantity', 'price', 'month', 'updated_at')
             ->searchMonth($month)
+            ->latest('updated_at')
             ->paginate(20);
 
         return $buyItems;
