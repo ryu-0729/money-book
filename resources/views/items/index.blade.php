@@ -10,8 +10,8 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">{{ __('商品名') }}</th>
-                        <th scope="col">{{ __('商品価格') }}</th>
+                        <th scope="col">@sortablelink('name', '商品名')</th>
+                        <th scope="col">@sortablelink('price', '商品価格')</th>
                     </tr>
                 </thead>
 
@@ -29,7 +29,7 @@
                         </tr>
                     @endforelse
 
-                    {{ $userItems->links() }}
+                    {!! $userItems->appends(\Request::except('page'))->render() !!}
                 </tbody>
             </table>
         </div>

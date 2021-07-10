@@ -4,11 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth; // ログインユーザーを取得したいため追記
+use Kyslik\ColumnSortable\Sortable; // ソート機能
 
 class Item extends Model
 {
+    use Sortable;
+
     protected $fillable = [
         'name', 'price'
+    ];
+
+    // ソートするカラムの設定
+    public $sortable = [
+        'name', 'price',
     ];
 
     // Userモデルとのリレーション

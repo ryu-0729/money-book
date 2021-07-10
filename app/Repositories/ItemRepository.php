@@ -11,6 +11,7 @@ class ItemRepository implements RepositoryInterface
     {
         $items = Auth::user()->items()
             ->select('id', 'name', 'price', 'updated_at')
+            ->sortable()
             ->latest('updated_at')
             ->paginate(20);
         return $items;
