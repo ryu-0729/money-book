@@ -11,6 +11,7 @@ class BuyItemRepository implements RepositoryInterface
     {
         $buyItems = Auth::user()->buyItems()
             ->select('id', 'name', 'quantity', 'price', 'month', 'updated_at')
+            ->sortable()
             ->latest('updated_at')
             ->paginate(20);
 
@@ -22,6 +23,7 @@ class BuyItemRepository implements RepositoryInterface
     {
         $buyItems = Auth::user()->buyItems()
             ->select('id', 'name', 'quantity', 'price', 'month', 'updated_at')
+            ->sortable()
             ->searchMonth($month)
             ->latest('updated_at')
             ->paginate(20);
