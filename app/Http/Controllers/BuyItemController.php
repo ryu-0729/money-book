@@ -36,14 +36,15 @@ class BuyItemController extends Controller
     public function store(StoreBuyItem $request)
     {
         $authUser = Auth::user();
-        $authUser->buyItems()->create([
+        $buyItem = $authUser->buyItems()->create([
             'name' => $request->name,
             'quantity' => $request->quantity,
             'price' => $this->item->getPrice($request->name, $request->quantity),
             'month' => $request->month,
         ]);
 
-        return redirect()->route('buy_items.index');
+        return redirect()->route('buy_items.create')
+            ->with('message', $buyItem['name'] . 'を購入しました');
     }
 
     public function show(BuyItem $buyItem)
