@@ -55,7 +55,7 @@ class ItemTest extends TestCase
             ->post('/items', $postItem);
 
         $response->assertStatus(302)
-            ->assertRedirect('/items');
+            ->assertRedirect('/items/create');
 
         $this->assertDatabaseHas('items', $postItem);
     }
