@@ -32,9 +32,10 @@ class ItemController extends Controller
     public function store(StoreItem $request)
     {
         $authUser = Auth::user();
-        $authUser->items()->create($request->validated());
+        $item = $authUser->items()->create($request->validated());
 
-        return redirect()->route('items.index');
+        return redirect()->route('items.create')
+            ->with('message', $item['name'] . 'を商品登録しました');
     }
 
     public function show(Item $item)

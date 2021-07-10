@@ -5,7 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('購入商品登録') }}</div>
+                <div class="card-header">
+                    {{ __('購入商品登録') }}
+                    <a class="btn btn-outline-primary" style="margin-left: 20px;" href="{{ route('buy_items.index') }}">{{ __('購入商品一覧へ') }}</a>
+                </div>
 
                 <div class="card-body">
                     @if ($errors->any())
@@ -15,6 +18,12 @@
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
+                        </div>
+                    @endif
+
+                    @if (session('message'))
+                        <div class="alert alert-primary" role="alert">
+                            {{ session('message') }}
                         </div>
                     @endif
 
