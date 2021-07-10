@@ -18,10 +18,14 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th scope="col">{{ __('購入商品名') }}</th>
+						<th scope="col">@sortablelink('name', '購入商品名')</th>
+                        <th scope="col">@sortablelink('quantity', '購入個数')</th>
+                        <th scope="col">@sortablelink('price', '合計金額')</th>
+                        <th scope="col">@sortablelink('month', '購入月')</th>
+						<!-- <th scope="col">{{ __('購入商品名') }}</th>
 						<th scope="col">{{ __('購入個数') }}</th>
 						<th scope="col">{{ __('金額') }}</th>
-						<th scope="col">{{ __('購入月') }}</th>
+						<th scope="col">{{ __('購入月') }}</th> -->
 					</tr>
 				</thead>
 
@@ -37,7 +41,7 @@
 						</tr>
 					@endforeach
 
-					{{ $buyItems->links() }}
+					{!! $buyItems->appends(\Request::except('page'))->render() !!}
 				</tbody>
 			</table>
 		</div>
