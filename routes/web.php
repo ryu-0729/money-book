@@ -18,6 +18,8 @@ Route::middleware(['auth'])->group(function () {
         'buy_items' => 'BuyItemController',
         // UserGoalのリソースルート
         'user_goals' => 'UserGoalController',
+        // 商品登録ルート
+        'item_tags' => 'ItemTagController',
     ]);
     // 金額集計ページのルート
     Route::get('monies', 'Money')->name('monies');
