@@ -52,17 +52,6 @@ class ItemTagController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ItemTag  $itemTag
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ItemTag $itemTag)
-    {
-        //
-    }
-
-    /**
      * タグ編集ページ
      *
      * @param ItemTag $itemTag
