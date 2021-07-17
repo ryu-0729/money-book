@@ -6,6 +6,7 @@ use App\Models\ItemTag;
 use Illuminate\Http\Request;
 use App\Repositories\ItemTagRepository; // ItemTagRepositoryの利用
 use App\Http\Requests\StoreItemTag; // StoreItemTagバリデーションを利用
+use App\Http\Requests\UpdateItemTag; // UpdateItemTagバリデーションを利用
 use Illuminate\Support\Facades\Auth; // ログインユーザーを取得したいため追記
 
 class ItemTagController extends Controller
@@ -39,7 +40,7 @@ class ItemTagController extends Controller
      * タグ登録
      *
      * @param StoreItemTag $request
-     * @return void
+     * @return $itemTag
      */
     public function store(StoreItemTag $request)
     {
@@ -62,26 +63,31 @@ class ItemTagController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * タグ編集ページ
      *
-     * @param  \App\Models\ItemTag  $itemTag
-     * @return \Illuminate\Http\Response
+     * @param ItemTag $itemTag
+     * @return $itemTag
      */
     public function edit(ItemTag $itemTag)
     {
-        //
+        $this->authorize($itemTag);
+        return view('item_tags.edit', compact('itemTag'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * タグ更新処理
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ItemTag  $itemTag
-     * @return \Illuminate\Http\Response
+     * @param UpdateItemTag $request
+     * @param ItemTag $itemTag
+     * @return void
      */
-    public function update(Request $request, ItemTag $itemTag)
+    public function update(UpdateItemTag $request, ItemTag $itemTag)
     {
-        //
+        $this->authorize($itemTag);
+        $itemTag->update($request->validated());
+
+        return redirect()->route('item_tags.index')
+            ->with('message', $itemTag['tag_name'] . 'を更新しました');
     }
 
     /**
