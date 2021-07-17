@@ -91,13 +91,17 @@ class ItemTagController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * タグ削除処理
      *
-     * @param  \App\Models\ItemTag  $itemTag
-     * @return \Illuminate\Http\Response
+     * @param ItemTag $itemTag
+     * @return void
      */
     public function destroy(ItemTag $itemTag)
     {
-        //
+        $this->authorize($itemTag);
+        $itemTag->delete();
+
+        return redirect()->route('item_tags.index')
+            ->with('message', $itemTag['tag_name'] . 'を削除しました');
     }
 }

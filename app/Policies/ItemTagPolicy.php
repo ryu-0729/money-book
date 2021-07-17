@@ -58,16 +58,17 @@ class ItemTagPolicy
     }
 
     /**
-     * Determine whether the user can delete the item tag.
+     * タグ削除処理の権限設定
+     * ユーザー自身のタグ以外は削除不可
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\ItemTag  $itemTag
      * @return mixed
      */
-    /* public function delete(User $user, ItemTag $itemTag)
+    public function delete(User $user, ItemTag $itemTag)
     {
-        //
-    } */
+        return $user->id === $itemTag->user_id;
+    }
 
     /**
      * Determine whether the user can restore the item tag.

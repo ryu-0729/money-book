@@ -21,6 +21,7 @@
                     <tr>
                         <th scope="col">{{ __('タグ名') }}</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -29,7 +30,12 @@
                         <tr>
                             <th>{{ $tag->tag_name }}</th>
                             <th>
-                                <a href="{{ route('item_tags.edit', $tag->id) }}" class="btn btn-primary">{{ __('タグ編集') }}</a>｜<a href="#">{{ __('タグ削除') }}</a>
+                                <a href="{{ route('item_tags.edit', $tag->id) }}" class="btn btn-primary">{{ __('タグ編集') }}</a>
+                            </th>
+                            <th>
+                                {!! Form::open(['action' => ['ItemTagController@destroy', $tag->id], 'method' => 'delete']) !!}
+                                    {{ Form::submit('タグ削除', ['class' => 'btn btn-danger']) }}
+                                {!! Form::close() !!}
                             </th>
                         </tr>
                     @empty
