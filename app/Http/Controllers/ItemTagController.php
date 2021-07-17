@@ -4,19 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\ItemTag;
 use Illuminate\Http\Request;
+use App\Repositories\ItemTagRepository; // ItemTagRepositoryの利用
 use App\Http\Requests\StoreItemTag; // StoreItemTagバリデーションを利用
 use Illuminate\Support\Facades\Auth; // ログインユーザーを取得したいため追記
 
 class ItemTagController extends Controller
 {
+    private $itemTagRepository;
+
+    public function __construct(ItemTagRepository $itemTagRepository)
+    {
+        $this->itemTagRepository = $itemTagRepository;
+    }
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * タグ一覧ページ
+     * 登録したタグの確認ができる
      */
     public function index()
     {
-        //
+        $itemTags = $this->itemTagRepository->getAll();
+        return view('item_tags.index', compact('itemTags'));
     }
 
     /**
