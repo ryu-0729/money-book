@@ -36,6 +36,14 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            {{ Form::label('tag_name', '商品タグ', ['class' => 'col-md-4 col-form-label text-md-right']) }}
+
+                            <div class="col-md-6">
+                                {{ Form::select('tag_name', $tagName, '', ['class' => 'form-control']) }}
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 {{ Form::submit('登録商品更新', ['class' => 'btn btn-primary']) }}

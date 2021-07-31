@@ -19,6 +19,10 @@ Route::middleware(['auth'])->group(function () {
         // UserGoalのリソースルート
         'user_goals' => 'UserGoalController',
     ]);
+    // 商品タグルート(詳細は不要)
+    Route::resource('item_tags', 'ItemTagController')->except([
+        'show',
+    ]);
     // 金額集計ページのルート
     Route::get('monies', 'Money')->name('monies');
 });
