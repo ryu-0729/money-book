@@ -16,6 +16,13 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ __('商品名：')}}{{ $item->name }}</h5>
                     <p class="card-text">{{ __('商品価格：') }}{{ $item->price }}{{ __('円') }}</p>
+
+                    @forelse ($item->itemTags as $tag)
+                        <p class="card-text">{{ __('商品タグ：') }}{{ $tag->tag_name }}</p>
+                    @empty
+                        <p class="card-text">登録されているタグはありません</p>
+                    @endforelse
+
                     <a href="{{ route('items.edit', $item->id) }}" class="btn btn-primary">{{ __('編集') }}</a>
                     {!! Form::open(['action' => ['ItemController@destroy', $item->id], 'method' => 'delete']) !!}
                         {{ Form::submit('登録商品を削除', ['class' => 'btn btn-danger']) }}

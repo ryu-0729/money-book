@@ -39,4 +39,10 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\UserGoal');
     }
+
+    // ItemTagモデルとのリレーション
+    public function itemTags()
+    {
+        return $this->hasMany('App\Models\ItemTag');
+    }
 }

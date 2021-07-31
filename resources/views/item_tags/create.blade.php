@@ -6,9 +6,9 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    {{ __('商品登録') }}
+                    {{ __('商品タグ登録') }}
                     <a class="btn btn-outline-primary" style="margin-left: 20px;" href="{{ route('items.index') }}">{{ __('商品一覧へ') }}</a>
-                    <a class="btn btn-outline-primary" style="margin-left: 20px;" href="{{ route('item_tags.create') }}">{{ __('タグ登録へ') }}</a>
+                    <a class="btn btn-outline-primary" style="margin-left: 20px;" href="{{ route('item_tags.index') }}">{{ __('タグ一覧へ') }}</a>
                 </div>
 
                 <div class="card-body">
@@ -28,38 +28,22 @@
                         </div>
                     @endif
 
-                    {!! Form::open(['action' => ['ItemController@store'], 'method' => 'post']) !!}
+                    {!! Form::open(['action' => ['ItemTagController@store'], 'method' => 'post']) !!}
 
                         <div class="form-group row">
-                            {{ Form::label('name', '商品名', ['class' => 'col-md-4 col-form-label text-md-right']) }}
+                            {{ Form::label('tag_name', 'タグ名', ['class' => 'col-md-4 col-form-label text-md-right']) }}
 
                             <div class="col-md-6">
-                                {{ Form::text('name', '', ['class' => 'form-control']) }}
+                                {{ Form::text('tag_name', '', ['class' => 'form-control']) }}
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            {{ Form::label('price', '商品価格', ['class' => 'col-md-4 col-form-label text-md-right']) }}
-
-                            <div class="col-md-6">
-                                {{ Form::number('price', '', ['class' => 'form-control']) }}
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            {{ Form::label('tag_name', '商品タグ', ['class' => 'col-md-4 col-form-label text-md-right']) }}
-
-                            <div class="col-md-6">
-                                {{ Form::select('tag_name', $tagName, '', ['class' => 'form-control']) }}
-                            </div>
-                        </div>
-
+                        
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                {{ Form::submit('商品登録', ['class' => 'btn btn-primary']) }}
+                                {{ Form::submit('タグ登録', ['class' => 'btn btn-primary']) }}
                             </div>
                         </div>
-                    
+
                     {!! Form::close() !!}
                 </div>
             </div>

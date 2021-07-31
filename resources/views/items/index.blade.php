@@ -12,6 +12,7 @@
                     <tr>
                         <th scope="col">@sortablelink('name', '商品名')</th>
                         <th scope="col">@sortablelink('price', '商品価格')</th>
+                        <th scope="col">{{ __('商品タグ') }}</th>
                     </tr>
                 </thead>
 
@@ -22,6 +23,11 @@
                                 <a href="{{ route('items.show', $item->id) }}">{{ $item->name }}</a>
                             </th>
                             <th>{{ $item->price }}{{ __('円') }}</th>
+                            @forelse ($item->itemTags as $tag)
+                                <th class="text-success">{{ $tag->tag_name }}</th>
+                            @empty
+                                <th>＊タグはありません</th>
+                            @endforelse
                         </tr>
                     @empty
                         <tr>
