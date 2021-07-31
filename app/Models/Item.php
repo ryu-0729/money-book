@@ -25,6 +25,19 @@ class Item extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    /**
+     * ItemTagとのリレーション（多対多）
+     */
+    public function itemTags()
+    {
+        return $this->belongsToMany(
+            'App\Models\ItemTag',
+            'item_tag_maps',
+            'item_id',
+            'item_tag_id',
+        );
+    }
+
     // ユーザーが登録した商品の名前を配列で取得
     public function getAuthUserItems()
     {

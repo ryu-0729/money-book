@@ -15,4 +15,17 @@ class ItemTag extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    /**
+     * itemとのリレーション（多対多）
+     */
+    public function items()
+    {
+        return $this->belongsToMany(
+            'App\Models\Item',
+            'item_tag_maps',
+            'item_tag_id',
+            'item_id',
+        );
+    }
 }
