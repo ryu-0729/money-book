@@ -7,6 +7,10 @@
 
             <h1>{{ __('購入商品一覧') }}</h1>
 
+            <h2>
+                <a class="btn btn-outline-success" href="{{ route('monies') }}">{{ __('金額集計ページへ') }}</a>
+            </h2>
+
             <table class="table table-striped">
                 <thead>
                     <tr>
