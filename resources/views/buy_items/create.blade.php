@@ -8,7 +8,6 @@
                 <div class="card-header">
                     {{ __('購入商品登録') }}
                     <a class="btn btn-outline-success" style="margin-left: 20px;" href="{{ route('buy_items.index') }}">{{ __('購入商品一覧へ') }}</a>
-                    <a class="btn btn-outline-success" style="margin-left: 20px;" href="{{ route('items.index') }}">{{ __('商品一覧へ') }}</a>
                 </div>
 
                 <div class="card-body">
