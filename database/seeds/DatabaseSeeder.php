@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             ItemsTableSeeder::class,
-            BuyItemsTableSeeder::class,
+            // ユーザー名をユニークにしたいため一旦コメントアウト
+            //BuyItemsTableSeeder::class,
             UserGoalsTableSeeder::class,
         ]);
     }
