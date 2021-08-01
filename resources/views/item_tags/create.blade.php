@@ -7,7 +7,6 @@
             <div class="card">
                 <div class="card-header">
                     {{ __('商品タグ登録') }}
-                    <a class="btn btn-outline-success" style="margin-left: 20px;" href="{{ route('items.index') }}">{{ __('商品一覧へ') }}</a>
                     <a class="btn btn-outline-success" style="margin-left: 20px;" href="{{ route('item_tags.index') }}">{{ __('タグ一覧へ') }}</a>
                 </div>
 
