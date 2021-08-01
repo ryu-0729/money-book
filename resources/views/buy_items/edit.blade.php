@@ -5,7 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('購入商品編集') }}</div>
+                <div class="card-header">
+                    {{ __('購入商品編集') }}
+                    <a class="btn btn-outline-success" style="margin-left: 20px;" href="{{ route('monies') }}">{{ __('金額集計ページへ') }}</a>
+                    <a class="btn btn-outline-success" style="margin-left: 20px;" href="{{ route('buy_items.index') }}">{{ __('購入商品一覧へ') }}</a>
+                </div>
 
                 <div class="card-body">
                     @if ($errors->any())

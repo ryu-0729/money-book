@@ -5,7 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ $itemTag->tag_name }}</div>
+                <div class="card-header">
+                    {{ $itemTag->tag_name }}{{ __('タグの編集') }}
+                    <a class="btn btn-outline-success" style="margin-left: 20px;" href="{{ route('item_tags.create') }}">タグ追加</a>
+                </div>
 
                 <div class="card-body">
                     @if ($errors->any())

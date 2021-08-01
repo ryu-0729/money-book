@@ -13,7 +13,7 @@
 
             <h1>{{ __('登録タグ一覧') }}</h1>
             <h2>
-                <a class="btn btn-outline-primary" href="{{ route('item_tags.create') }}">タグ追加</a>
+                <a class="btn btn-outline-success" href="{{ route('item_tags.create') }}">タグ追加</a>
             </h2>
 
             <table class="table table-striped">

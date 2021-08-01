@@ -7,6 +7,10 @@
 
             <h1>{{ __('商品一覧') }}</h1>
 
+            <h2>
+                <a class="btn btn-outline-success" href="{{ route('items.create') }}">{{ __('商品登録') }}</a>
+            </h2>
+
             <table class="table table-striped">
                 <thead>
                     <tr>
