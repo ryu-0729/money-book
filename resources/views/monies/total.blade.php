@@ -8,7 +8,7 @@
 				<div class="form-outline">
 					{!! Form::open(['action' => ['Money'], 'method' => 'get']) !!}
 						{{ Form::select('month', $buyItemMonth, '', ['class' => 'form-control']) }}
-						{{ Form::submit('金額集計', ['class' => 'btn btn-primary']) }}
+						{{ Form::submit('金額集計', ['class' => 'btn btn-success']) }}
 					{!! Form::close() !!}
 				</div>
 			</div>
@@ -22,10 +22,6 @@
                         <th scope="col">@sortablelink('quantity', '購入個数')</th>
                         <th scope="col">@sortablelink('price', '合計金額')</th>
                         <th scope="col">@sortablelink('month', '購入月')</th>
-						<!-- <th scope="col">{{ __('購入商品名') }}</th>
-						<th scope="col">{{ __('購入個数') }}</th>
-						<th scope="col">{{ __('金額') }}</th>
-						<th scope="col">{{ __('購入月') }}</th> -->
 					</tr>
 				</thead>
 
