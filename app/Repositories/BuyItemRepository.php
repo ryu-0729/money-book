@@ -39,4 +39,19 @@ class BuyItemRepository implements RepositoryInterface
 
         return $price;
     }
+
+    /**
+     * ログインユーザーが購入した商品の商品名を取得
+     * Itemテーブルから商品タグを取得する際に利用
+     * todo
+     *
+     * @return void
+     */
+    public function getBuyItemName()
+    {
+        $buyItemName = Auth::user()->buyItems()
+            ->get('name');
+
+        return $buyItemName;
+    }
 }
