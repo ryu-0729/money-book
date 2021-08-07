@@ -18,6 +18,7 @@
                         <th scope="col">@sortablelink('quantity', '購入個数')</th>
                         <th scope="col">@sortablelink('price', '合計金額')</th>
                         <th scope="col">@sortablelink('month', '購入月')</th>
+                        <th scope="col">商品タグ</th>
                     </tr>
                 </thead>
 
@@ -30,6 +31,13 @@
                             <th>{{ $item->quantity }}{{ __('個') }}</th>
                             <th>{{ $item->price }}{{ __('円') }}</th>
                             <th>{{ $item->month }}{{ __('月') }}</th>
+                            @foreach ($userItems as $tagItem)
+                                @foreach ($tagItem->itemTags as $tag)
+                                    @if ($item->name === $tagItem->name)
+                                        <th class="text-success">{{ $tag->tag_name }}</th>
+                                    @endif
+                                @endforeach
+                            @endforeach
                         </tr>
                     @empty
                         <tr>
