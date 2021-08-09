@@ -49,6 +49,9 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // ユーザー名の半角、全角空白の取り除き
+        $data['name'] = str_replace([' ', '　'], '', $data['name']);
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],

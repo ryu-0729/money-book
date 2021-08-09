@@ -15,6 +15,23 @@ class UpdateItemTag extends FormRequest
     }
 
     /**
+     * 入力値のデータ更新
+     *
+     * @return void
+     */
+    public function validationData()
+    {
+        $data = $this->all();
+
+        // タグ名の半角、全角の空白取り除き
+        if (!empty($data['tag_name'])) {
+            $data['tag_name'] = str_replace([' ', '　'], '', $data['tag_name']);
+        }
+
+        return $data;
+    }
+
+    /**
      * 商品タグ更新のバリデーション
      *
      * @return array

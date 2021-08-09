@@ -11,6 +11,23 @@ class StoreItem extends FormRequest
         return true;
     }
 
+    /**
+     * 入力値のデータ更新
+     *
+     * @return void
+     */
+    public function validationData()
+    {
+        $data = $this->all();
+
+        // 商品名の半角、全角の空白取り除き
+        if (!empty($data['name'])) {
+            $data['name'] = str_replace([' ', '　'], '', $data['name']);
+        }
+
+        return $data;
+    }
+
     public function rules()
     {
         return [
