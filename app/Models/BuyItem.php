@@ -10,21 +10,53 @@ class BuyItem extends Model
 {
     use Sortable;
 
+    /**
+     * buy_itemsテーブルと関連
+     *
+     * @var string
+     */
+    protected $table = 'buy_items';
+
+    /**
+     * buy_itemsテーブルの主キー
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
+
+    /**
+     * 複数代入許可カラム
+     *
+     * @var array
+     */
     protected $fillable = [
         'name', 'quantity', 'price', 'month',
     ];
 
+    /**
+     * ソート許可カラム
+     *
+     * @var array
+     */
     public $sortable = [
         'name', 'quantity', 'price', 'month',
     ];
 
-    // Userモデルとのリレーション
+    /**
+     * ユーザーモデルとのリレーション
+     *
+     * @return void
+     */
     public function user()
     {
         return $this->belongsTo('App\Models\User');
     }
 
-    // ユーザーが登録した購入商品の月を配列で取得
+    /**
+     * ユーザーが登録した購入商品の月を配列で取得
+     *
+     * @return void
+     */
     public function getBuyItemMonth()
     {
         $buyItems = Auth::user()->buyItems()->get('month');
@@ -38,7 +70,13 @@ class BuyItem extends Model
         return $buyItemMonth;
     }
 
-    // リクエストされた月からデータを絞り込むクエリスコープ
+    /**
+     * リクエストされた月からデータを絞り込むクエリスコープ
+     *
+     * @param [type] $query
+     * @param [type] $month
+     * @return void
+     */
     public function scopeSearchMonth($query, $month)
     {
         if ($month) {

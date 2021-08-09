@@ -10,16 +10,43 @@ class Item extends Model
 {
     use Sortable;
 
+    /**
+     * itemsテーブルと関連
+     *
+     * @var string
+     */
+    protected $table = 'items';
+
+    /**
+     * itemsテーブルの主キー
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
+
+    /**
+     * 複数代入許可カラム
+     *
+     * @var array
+     */
     protected $fillable = [
         'name', 'price'
     ];
 
-    // ソートするカラムの設定
+    /**
+     * ソート許可カラム
+     *
+     * @var array
+     */
     public $sortable = [
         'name', 'price',
     ];
 
-    // Userモデルとのリレーション
+    /**
+     * Userモデルとのリレーション（多対1）
+     *
+     * @return void
+     */
     public function user()
     {
         return $this->belongsTo('App\Models\User');
@@ -27,6 +54,8 @@ class Item extends Model
 
     /**
      * ItemTagとのリレーション（多対多）
+     *
+     * @return void
      */
     public function itemTags()
     {
@@ -38,7 +67,11 @@ class Item extends Model
         );
     }
 
-    // ユーザーが登録した商品の名前を配列で取得
+    /**
+     * ユーザーが登録した商品の名前を配列で取得
+     *
+     * @return void
+     */
     public function getAuthUserItems()
     {
         $items = Auth::user()->items()->get('name');
@@ -52,7 +85,13 @@ class Item extends Model
         return $itemsName;
     }
 
-    // リクエストされた個数から金額を計算する処理
+    /**
+     * リクエストされた個数から金額を計算する処理
+     *
+     * @param [type] $name
+     * @param [type] $quantity
+     * @return void
+     */
     public function getPrice($name, $quantity)
     {
         $getPrice = Auth::user()->items()->where('name', $name)

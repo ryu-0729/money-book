@@ -6,11 +6,34 @@ use Illuminate\Database\Eloquent\Model;
 
 class ItemTag extends Model
 {
+    /**
+     * item_tagsテーブルと関連
+     *
+     * @var string
+     */
+    protected $table = 'item_tags';
+
+    /**
+     * item_tagsテーブルの主キー
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
+
+    /**
+     * 複数代入許可カラム
+     *
+     * @var array
+     */
     protected $fillable = [
         'tag_name'
     ];
 
-    // Userモデルとのリレーション
+    /**
+     * ユーザーモデルとのリレーション（多対1）
+     *
+     * @return void
+     */
     public function user()
     {
         return $this->belongsTo('App\Models\User');
