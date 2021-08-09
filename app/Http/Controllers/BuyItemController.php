@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BuyItem;
 use Illuminate\Http\Request;
 use App\Repositories\BuyItemRepository; // BuyItemRepositoryを使用
+use App\Repositories\ItemRepository; // ItemRepositoryを利用
 use App\Models\Item;
 use App\Http\Requests\StoreBuyItem; // StoreBuyItemバリデーションを利用
 use App\Http\Requests\UpdateBuyItem; // UpdateBuyItemバリデーションを利用
@@ -15,16 +16,24 @@ class BuyItemController extends Controller
     private $buyItemRepository;
     private $item;
 
-    public function __construct(BuyItemRepository $buyItemRepository, Item $item)
+    public function __construct(BuyItemRepository $buyItemRepository, Item $item, ItemRepository $itemRepository)
     {
         $this->buyItemRepository = $buyItemRepository;
         $this->item = $item;
+        $this->itemRepository = $itemRepository;
     }
 
+    /**
+     * 購入商品一覧
+     *
+     * @return void
+     */
     public function index()
     {
         $userBuyItems = $this->buyItemRepository->getAll();
-        return view('buy_items.index', compact('userBuyItems'));
+        $userItems = $this->itemRepository->getAll();
+
+        return view('buy_items.index', compact('userBuyItems', 'userItems'));
     }
 
     public function create()

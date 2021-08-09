@@ -7,7 +7,6 @@
             <div class="card">
                 <div class="card-header">
                     {{ __('購入商品編集') }}
-                    <a class="btn btn-outline-success" style="margin-left: 20px;" href="{{ route('monies') }}">{{ __('金額集計ページへ') }}</a>
                     <a class="btn btn-outline-success" style="margin-left: 20px;" href="{{ route('buy_items.index') }}">{{ __('購入商品一覧へ') }}</a>
                 </div>
 
