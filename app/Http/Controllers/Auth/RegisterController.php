@@ -67,6 +67,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // ユーザー名の半角、全角空白の取り除き
+        $data['name'] = str_replace([' ', '　'], '', $data['name']);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
