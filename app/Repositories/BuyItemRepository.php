@@ -18,8 +18,14 @@ class BuyItemRepository implements RepositoryInterface
         return $buyItems;
     }
 
-    // 検索月からその月のデータの取得
-    public function searchMonth($month)
+    // 
+    /**
+     * 検索月からその月のデータの取得
+     *
+     * @param $month
+     * @return array $buyItems
+     */
+    public function getBuyItemDataSearchMonth($month)
     {
         $buyItems = Auth::user()->buyItems()
             ->select('id', 'name', 'quantity', 'price', 'month', 'updated_at')

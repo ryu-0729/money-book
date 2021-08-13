@@ -20,7 +20,7 @@ class Money extends Controller
     public function __invoke(Request $request)
     {
         $buyItemMonth = $this->buyItem->getBuyItemMonth();
-        $buyItems = $this->buyItemRepository->searchMonth($request->month);
+        $buyItems = $this->buyItemRepository->getBuyItemDataSearchMonth($request->month);
         $totalPrice = $this->buyItemRepository->getTotalPrice($request->month);
 
         return view('monies.total', compact('buyItemMonth', 'buyItems', 'totalPrice'));
