@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\BuyItem;
 use Illuminate\Http\Request;
 use App\Repositories\ItemRepository;
 use App\Repositories\ItemTagRepository; // ItemTagRepositoryの利用
+use App\Repositories\BuyItemRepository;
 use App\Http\Requests\StoreItem; // StoreItemバリデーションを利用
 use App\Http\Requests\UpdateItem; // UpdateItemバリデーションを利用
 use Illuminate\Support\Facades\Auth; // ログインユーザーを取得したいため追記
@@ -15,10 +17,11 @@ class ItemController extends Controller
 {
     private $itemRepository;
 
-    public function __construct(ItemRepository $itemRepository, ItemTagRepository $itemTagRepository)
+    public function __construct(ItemRepository $itemRepository, ItemTagRepository $itemTagRepository, BuyItemRepository $buyItemRepository)
     {
         $this->itemRepository = $itemRepository;
         $this->itemTagRepository = $itemTagRepository;
+        $this->buyItemRepository = $buyItemRepository;
     }
 
     /**
@@ -130,6 +133,10 @@ class ItemController extends Controller
     {
         $this->authorize($item);
         $tagId = $request->tag_name;
+
+        // 更新する商品と同名の購入商品のデータ取得
+        $buyItems = $this->buyItemRepository->getBuyItemsByItemName($item->name);
+
         try {
             DB::beginTransaction();
             $item->update($request->validated());
@@ -137,6 +144,15 @@ class ItemController extends Controller
             if ($tagId !== '0') {
                 $item->itemTags()->sync($tagId);
             }
+
+            // 登録商品と同名の購入商品の更新、商品名に変更があった場合には購入商品名も更新する
+            if (!empty($buyItems)) {
+                foreach ($buyItems as $buyItem) {
+                    BuyItem::where('id', $buyItem->id)
+                        ->update(['name' => $request->name]);
+                }
+            }
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
