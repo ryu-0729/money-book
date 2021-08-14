@@ -19,7 +19,7 @@ class ItemRepository implements RepositoryInterface
 
     /**
      * 購入商品と同じ商品名のタグを取得
-     * 購入商品登録で使用
+     * 購入商品登録、更新で使用
      *
      * @param string $buyItemName
      * @return void
