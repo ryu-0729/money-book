@@ -39,4 +39,19 @@ class BuyItemRepository implements RepositoryInterface
 
         return $price;
     }
+
+    /**
+     * 登録商品名から購入商品のデータ取得
+     *
+     * @param string $itemName
+     * @return array $buyItems
+     */
+    public function getBuyItemsByItemName(string $itemName)
+    {
+        $buyItems = Auth::user()->buyItems()
+            ->where('name', $itemName)
+            ->get(['id', 'name']);
+
+        return $buyItems;
+    }
 }
