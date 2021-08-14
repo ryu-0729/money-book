@@ -15,6 +15,7 @@ class BuyItemController extends Controller
 {
     private $buyItemRepository;
     private $item;
+    private $itemRepository;
 
     public function __construct(BuyItemRepository $buyItemRepository, Item $item, ItemRepository $itemRepository)
     {
@@ -31,9 +32,8 @@ class BuyItemController extends Controller
     public function index()
     {
         $userBuyItems = $this->buyItemRepository->getAll();
-        $userItems = $this->itemRepository->getAll();
 
-        return view('buy_items.index', compact('userBuyItems', 'userItems'));
+        return view('buy_items.index', compact('userBuyItems'));
     }
 
     public function create()
@@ -42,14 +42,25 @@ class BuyItemController extends Controller
         return view('buy_items.create', compact('itemsName'));
     }
 
+    /**
+     * 購入商品の登録
+     *
+     * @param StoreBuyItem $request
+     * @return void
+     */
     public function store(StoreBuyItem $request)
     {
         $authUser = Auth::user();
+
+        // 購入商品と同名の商品タグ名を取得
+        $tagName = $this->itemRepository->getItemTagNameByBuyItemName($request->name);
+
         $buyItem = $authUser->buyItems()->create([
             'name' => $request->name,
             'quantity' => $request->quantity,
             'price' => $this->item->getPrice($request->name, $request->quantity),
             'month' => $request->month,
+            'item_tag_name' => $tagName,
         ]);
 
         return redirect()->route('buy_items.create')

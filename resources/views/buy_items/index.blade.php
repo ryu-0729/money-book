@@ -31,13 +31,7 @@
                             <th>{{ $item->quantity }}{{ __('個') }}</th>
                             <th>{{ $item->price }}{{ __('円') }}</th>
                             <th>{{ $item->month }}{{ __('月') }}</th>
-                            @foreach ($userItems as $tagItem)
-                                @foreach ($tagItem->itemTags as $tag)
-                                    @if ($item->name === $tagItem->name)
-                                        <th class="text-success">{{ $tag->tag_name }}</th>
-                                    @endif
-                                @endforeach
-                            @endforeach
+                            <th class="text-success">{{ $item->item_tag_name }}</th>
                         </tr>
                     @empty
                         <tr>
