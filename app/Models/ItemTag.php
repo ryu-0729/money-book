@@ -30,6 +30,13 @@ class ItemTag extends Model
     ];
 
     /**
+     * リレーション先の更新日時を更新する
+     *
+     * @var array
+     */
+    protected $touches = ['items'];
+
+    /**
      * ユーザーモデルとのリレーション（多対1）
      *
      * @return void
