@@ -20,4 +20,20 @@ class ItemTagRepository implements RepositoryInterface
 
         return $itemTags;
     }
+
+    /**
+     * リクエストされたタグのIDからタグ名の取得
+     *
+     * @param integer $tagId
+     * @return $tagName
+     */
+    public function getTagNameByRequestTagId(int $tagId)
+    {
+        $tagName = Auth::user()->itemTags()
+            ->select('tag_name')
+            ->where('id', $tagId)
+            ->firstOrFail();
+
+        return $tagName;
+    }
 }

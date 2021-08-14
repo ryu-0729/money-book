@@ -30,7 +30,7 @@ class BuyItem extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'quantity', 'price', 'month',
+        'name', 'quantity', 'price', 'month', 'item_tag_name'
     ];
 
     /**

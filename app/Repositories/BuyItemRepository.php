@@ -10,7 +10,7 @@ class BuyItemRepository implements RepositoryInterface
     public function getAll()
     {
         $buyItems = Auth::user()->buyItems()
-            ->select('id', 'name', 'quantity', 'price', 'month', 'updated_at')
+            ->select('id', 'name', 'quantity', 'price', 'month', 'item_tag_name', 'updated_at')
             ->sortable()
             ->latest('updated_at')
             ->paginate(20);
