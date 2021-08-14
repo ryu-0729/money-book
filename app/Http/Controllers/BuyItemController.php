@@ -80,13 +80,24 @@ class BuyItemController extends Controller
         return view('buy_items.edit', compact('buyItem', 'itemsName'));
     }
 
+    /**
+     * 購入商品の更新
+     *
+     * @param UpdateBuyItem $request
+     * @param BuyItem $buyItem
+     * @return void
+     */
     public function update(UpdateBuyItem $request, BuyItem $buyItem)
     {
         $this->authorize($buyItem);
+        // 購入商品と同名の商品タグ名を取得
+        $tagName = $this->itemRepository->getItemTagNameByBuyItemName($request->name);
         $buyItem->update([
+            'name' => $request->name,
             'quantity' => $request->quantity,
             'price' => $this->item->getPrice($request->name, $request->quantity),
             'month' => $request->month,
+            'item_tag_name' => $tagName
         ]);
 
         return redirect()->route('buy_items.show', [$buyItem])

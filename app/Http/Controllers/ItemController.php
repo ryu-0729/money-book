@@ -151,12 +151,19 @@ class ItemController extends Controller
                 $item->itemTags()->sync($tagId);
             }
 
-            // 登録商品と同名の購入商品の更新、商品名に変更があった場合には購入商品名も更新する
             if (!empty($buyItems) && !empty($tagName)) {
+                // 商品名とタグの更新がある場合
                 foreach ($buyItems as $buyItem) {
                     BuyItem::where('id', $buyItem->id)->update([
                         'name' => $request->name,
                         'item_tag_name' => $tagName->tag_name,
+                    ]);
+                }
+            } elseif (!empty($buyItems)) {
+                // 商品名のみ更新の場合
+                foreach ($buyItems as $buyItem) {
+                    BuyItem::where('id', $buyItem->id)->update([
+                        'name' => $request->name,
                     ]);
                 }
             }
