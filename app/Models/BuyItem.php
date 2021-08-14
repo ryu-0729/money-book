@@ -30,7 +30,7 @@ class BuyItem extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'quantity', 'price', 'month',
+        'name', 'quantity', 'price', 'month', 'item_tag_name'
     ];
 
     /**
@@ -75,11 +75,14 @@ class BuyItem extends Model
      *
      * @param [type] $query
      * @param [type] $month
+     * @param [type] $tagName
      * @return void
      */
-    public function scopeSearchMonth($query, $month)
+    public function scopeSearchMonth($query, $month, $tagName = null)
     {
-        if ($month) {
+        if (!empty($month) && !empty($tagName)) {
+            return $query->where('month', $month)->where('item_tag_name', $tagName);
+        } elseif (!empty($month)) {
             return $query->where('month', $month);
         }
     }

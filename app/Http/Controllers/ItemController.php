@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\DB;
 class ItemController extends Controller
 {
     private $itemRepository;
+    private $itemTagRepository;
+    private $buyItemRepository;
 
     public function __construct(ItemRepository $itemRepository, ItemTagRepository $itemTagRepository, BuyItemRepository $buyItemRepository)
     {
@@ -136,6 +138,10 @@ class ItemController extends Controller
 
         // 更新する商品と同名の購入商品のデータ取得
         $buyItems = $this->buyItemRepository->getBuyItemsByItemName($item->name);
+        // タグ名の取得
+        if ($tagId !== '0') {
+            $tagName = $this->itemTagRepository->getTagNameByRequestTagId($tagId);
+        }
 
         try {
             DB::beginTransaction();
@@ -146,10 +152,12 @@ class ItemController extends Controller
             }
 
             // 登録商品と同名の購入商品の更新、商品名に変更があった場合には購入商品名も更新する
-            if (!empty($buyItems)) {
+            if (!empty($buyItems) && !empty($tagName)) {
                 foreach ($buyItems as $buyItem) {
-                    BuyItem::where('id', $buyItem->id)
-                        ->update(['name' => $request->name]);
+                    BuyItem::where('id', $buyItem->id)->update([
+                        'name' => $request->name,
+                        'item_tag_name' => $tagName->tag_name,
+                    ]);
                 }
             }
 
