@@ -8,7 +8,7 @@
 				<div class="form-outline">
 					{!! Form::open(['action' => ['Money'], 'method' => 'get']) !!}
 						{{ Form::select('month', $buyItemMonth, '', ['class' => 'form-control']) }}
-						{{ Form::select('tagId', $tagNames, '', ['class' => 'form-control']) }}
+						{{ Form::select('tagId', $selectTagNames, '', ['class' => 'form-control']) }}
 						{{ Form::submit('金額集計', ['class' => 'btn btn-success']) }}
 					{!! Form::close() !!}
 				</div>

@@ -23,7 +23,7 @@ class Money extends Controller
     public function __invoke(Request $request)
     {
         $buyItemMonth = $this->buyItem->getBuyItemMonth();
-        $tagNames = $this->itemTagRepository->getTagNames();
+        $selectTagNames = $this->itemTagRepository->getTagNames();
         // タグの選択の有無
         if ($request->tagId) {
             $tag = $this->itemTagRepository->getTagNameByRequestTagId($request->tagId);
@@ -36,6 +36,6 @@ class Money extends Controller
         $totalPrice = $this->buyItemRepository->getTotalPrice($request->month, $tagName);
         $month = $request->month;
 
-        return view('monies.total', compact('buyItemMonth', 'buyItems', 'totalPrice', 'month', 'tagNames', 'tagName'));
+        return view('monies.total', compact('buyItemMonth', 'buyItems', 'totalPrice', 'month', 'selectTagNames', 'tagName'));
     }
 }
