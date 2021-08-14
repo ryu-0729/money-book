@@ -25,12 +25,12 @@ class BuyItemRepository implements RepositoryInterface
      * @param $month
      * @return array $buyItems
      */
-    public function getBuyItemDataSearchMonth($month)
+    public function getBuyItemDataSearchMonth($month, $tagName = null)
     {
         $buyItems = Auth::user()->buyItems()
-            ->select('id', 'name', 'quantity', 'price', 'month', 'updated_at')
+            ->select('id', 'name', 'quantity', 'price', 'month', 'item_tag_name', 'updated_at')
             ->sortable()
-            ->searchMonth($month)
+            ->searchMonth($month, $tagName)
             ->latest('updated_at')
             ->paginate(20);
 
@@ -38,10 +38,10 @@ class BuyItemRepository implements RepositoryInterface
     }
 
     // 検索月からその月の合計金額を取得
-    public function getTotalPrice($month)
+    public function getTotalPrice($month, $tagName = null)
     {
         $price = Auth::user()->buyItems()
-            ->searchMonth($month)->get(['price', 'month'])->sum('price');
+            ->searchMonth($month, $tagName)->get(['price', 'month'])->sum('price');
 
         return $price;
     }

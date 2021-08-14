@@ -8,12 +8,22 @@
 				<div class="form-outline">
 					{!! Form::open(['action' => ['Money'], 'method' => 'get']) !!}
 						{{ Form::select('month', $buyItemMonth, '', ['class' => 'form-control']) }}
+						{{ Form::select('tagId', $tagNames, '', ['class' => 'form-control']) }}
 						{{ Form::submit('金額集計', ['class' => 'btn btn-success']) }}
 					{!! Form::close() !!}
 				</div>
 			</div>
 
 			<h1>{{ __('合計金額は') }}{{ $totalPrice }}{{ __('円') }}</h1>
+
+			<h2>
+				@if ($month)
+					{{ $month }}月
+				@endif
+				@if ($tagName)
+					タグ名：{{ $tagName }}
+				@endif
+			</h2>
 
 			<table class="table table-striped">
 				<thead>
@@ -22,6 +32,7 @@
                         <th scope="col">@sortablelink('quantity', '購入個数')</th>
                         <th scope="col">@sortablelink('price', '合計金額')</th>
                         <th scope="col">@sortablelink('month', '購入月')</th>
+						<th scope="col">タグ名</th>
 					</tr>
 				</thead>
 
@@ -34,6 +45,7 @@
 							<th>{{ $item->quantity }}{{ __('個') }}</th>
                             <th>{{ $item->price }}{{ __('円') }}</th>
                             <th>{{ $item->month }}{{ __('月') }}</th>
+							<th class="text-success">{{ $item->item_tag_name }}</th>
 						</tr>
 					@endforeach
 

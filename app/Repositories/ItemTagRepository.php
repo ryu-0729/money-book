@@ -36,4 +36,22 @@ class ItemTagRepository implements RepositoryInterface
 
         return $tagName;
     }
+
+    /**
+     * ユーザーが登録したタグ名の取得
+     *
+     * @return $tagNames
+     */
+    public function getTagNames()
+    {
+        $itemTags = $this->getAll();
+
+        $tagNames = [0 => ''];
+
+        foreach ($itemTags as $tag) {
+            $tagNames[$tag->id] = $tag->tag_name;
+        }
+
+        return $tagNames;
+    }
 }
