@@ -54,6 +54,10 @@ class BuyItemController extends Controller
 
         // 購入商品と同名の商品タグ名を取得
         $tagName = $this->itemRepository->getItemTagNameByBuyItemName($request->name);
+        // タグが存在しない場合はnullで登録する
+        if (empty($tagName)) {
+            $tagName = null;
+        }
 
         $buyItem = $authUser->buyItems()->create([
             'name' => $request->name,
@@ -92,6 +96,11 @@ class BuyItemController extends Controller
         $this->authorize($buyItem);
         // 購入商品と同名の商品タグ名を取得
         $tagName = $this->itemRepository->getItemTagNameByBuyItemName($request->name);
+        // タグが存在しない場合はnullで更新する
+        if (empty($tagName)) {
+            $tagName = null;
+        }
+
         $buyItem->update([
             'name' => $request->name,
             'quantity' => $request->quantity,
