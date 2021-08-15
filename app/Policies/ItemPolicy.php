@@ -15,6 +15,13 @@ class ItemPolicy
         //
     } */
 
+    /**
+     * ユーザー自身が登録した商品の詳細のみ
+     *
+     * @param User $user
+     * @param Item $item
+     * @return void
+     */
     public function view(User $user, Item $item)
     {
         return $user->id === $item->user_id;
@@ -25,11 +32,25 @@ class ItemPolicy
         //
     } */
 
+    /**
+     * ユーザー自身が登録した商品の編集、更新のみ
+     *
+     * @param User $user
+     * @param Item $item
+     * @return void
+     */
     public function update(User $user, Item $item)
     {
         return $user->id === $item->user_id;
     }
 
+    /**
+     * ユーザー自身が登録した商品の削除のみ
+     *
+     * @param User $user
+     * @param Item $item
+     * @return void
+     */
     public function delete(User $user, Item $item)
     {
         return $user->id === $item->user_id;

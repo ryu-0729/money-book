@@ -6,6 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUser extends FormRequest
 {
+    /**
+     * 認可
+     */
     public function authorize()
     {
         return true;
@@ -28,6 +31,11 @@ class UpdateUser extends FormRequest
         return $data;
     }
 
+    /**
+     * ユーザー更新のバリデーション
+     *
+     * @return void
+     */
     public function rules()
     {
         return [
@@ -35,6 +43,11 @@ class UpdateUser extends FormRequest
         ];
     }
 
+    /**
+     * バリデーションメッセージ
+     *
+     * @return void
+     */
     public function messages()
     {
         return [

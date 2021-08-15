@@ -6,11 +6,19 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateBuyItem extends FormRequest
 {
+    /**
+     * 認可
+     */
     public function authorize()
     {
         return true;
     }
 
+    /**
+     * 購入商品の更新バリデーション
+     *
+     * @return void
+     */
     public function rules()
     {
         return [
@@ -20,6 +28,11 @@ class UpdateBuyItem extends FormRequest
         ];
     }
 
+    /**
+     * 購入商品のバリデーションメッセージ
+     *
+     * @return void
+     */
     public function messages()
     {
         return [

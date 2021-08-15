@@ -20,6 +20,12 @@ class Money extends Controller
         $this->itemTagRepository = $itemTagRepository;
     }
 
+    /**
+     * 金額集計ページ
+     *
+     * @param Request $request
+     * @return void
+     */
     public function __invoke(Request $request)
     {
         $buyItemMonth = $this->buyItem->getBuyItemMonth();
