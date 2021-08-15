@@ -6,6 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreItemTag extends FormRequest
 {
+    /**
+     * 認可
+     */
     public function authorize()
     {
         return true;

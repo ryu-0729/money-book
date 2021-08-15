@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\BuyItem;
-use Illuminate\Http\Request;
 use App\Repositories\BuyItemRepository; // BuyItemRepositoryを使用
 use App\Repositories\ItemRepository; // ItemRepositoryを利用
 use App\Models\Item;
@@ -71,12 +70,24 @@ class BuyItemController extends Controller
             ->with('message', $buyItem['name'] . 'を購入しました');
     }
 
+    /**
+     * 購入商品詳細ページ
+     *
+     * @param BuyItem $buyItem
+     * @return void
+     */
     public function show(BuyItem $buyItem)
     {
         $this->authorize($buyItem);
         return view('buy_items.show', compact('buyItem'));
     }
 
+    /**
+     * 購入商品編集ページ
+     *
+     * @param BuyItem $buyItem
+     * @return void
+     */
     public function edit(BuyItem $buyItem)
     {
         $this->authorize($buyItem);
@@ -113,6 +124,12 @@ class BuyItemController extends Controller
             ->with('message', '購入商品を更新しました');
     }
 
+    /**
+     * 購入商品削除
+     *
+     * @param BuyItem $buyItem
+     * @return void
+     */
     public function destroy(BuyItem $buyItem)
     {
         $this->authorize($buyItem);

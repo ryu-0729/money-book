@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\BuyItem;
-use Illuminate\Http\Request;
 use App\Repositories\ItemRepository;
 use App\Repositories\ItemTagRepository; // ItemTagRepositoryの利用
 use App\Repositories\BuyItemRepository;
@@ -178,6 +177,12 @@ class ItemController extends Controller
             ->with('message', '登録商品を更新しました');
     }
 
+    /**
+     * 登録商品削除
+     *
+     * @param Item $item
+     * @return void
+     */
     public function destroy(Item $item)
     {
         $this->authorize($item);

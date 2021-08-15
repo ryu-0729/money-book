@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\ItemTag;
-use Illuminate\Http\Request;
 use App\Repositories\ItemTagRepository; // ItemTagRepositoryの利用
 use App\Http\Requests\StoreItemTag; // StoreItemTagバリデーションを利用
 use App\Http\Requests\UpdateItemTag; // UpdateItemTagバリデーションを利用

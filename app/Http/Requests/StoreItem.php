@@ -6,6 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreItem extends FormRequest
 {
+    /**
+     * 認可
+     */
     public function authorize()
     {
         return true;
@@ -28,6 +31,11 @@ class StoreItem extends FormRequest
         return $data;
     }
 
+    /**
+     * 商品登録のバリデーション
+     *
+     * @return void
+     */
     public function rules()
     {
         return [
@@ -36,6 +44,11 @@ class StoreItem extends FormRequest
         ];
     }
 
+    /**
+     * 商品登録のバリデーションメッセージ
+     *
+     * @return void
+     */
     public function messages()
     {
         return [
