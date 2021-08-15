@@ -6,11 +6,19 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreBuyItem extends FormRequest
 {
+    /**
+     * 認可
+     */
     public function authorize()
     {
         return true;
     }
 
+    /**
+     * 購入商品登録のバリデーション
+     *
+     * @return void
+     */
     public function rules()
     {
         return [
@@ -20,6 +28,11 @@ class StoreBuyItem extends FormRequest
         ];
     }
 
+    /**
+     * バリデーションメッセージ
+     *
+     * @return void
+     */
     public function messages()
     {
         return [

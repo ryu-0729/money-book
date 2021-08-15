@@ -2,11 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\BuyItem; // BuyItemをインポート
 use Illuminate\Support\Facades\Auth;
 
 class BuyItemRepository implements RepositoryInterface
 {
+    /**
+     * ユーザーに紐づく購入商品の取得
+     *
+     * @return void
+     */
     public function getAll()
     {
         $buyItems = Auth::user()->buyItems()
@@ -37,7 +41,13 @@ class BuyItemRepository implements RepositoryInterface
         return $buyItems;
     }
 
-    // 検索月からその月の合計金額を取得
+    /**
+     * 検索月からその月の合計金額を取得
+     *
+     * @param [type] $month
+     * @param [type] $tagName
+     * @return void
+     */
     public function getTotalPrice($month, $tagName = null)
     {
         $price = Auth::user()->buyItems()

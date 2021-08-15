@@ -15,6 +15,13 @@ class BuyItemPolicy
         //
     } */
 
+    /**
+     * ユーザー自身が購入登録した商品の詳細のみ閲覧可能
+     *
+     * @param User $user
+     * @param BuyItem $buyItem
+     * @return void
+     */
     public function view(User $user, BuyItem $buyItem)
     {
         return $user->id === $buyItem->user_id;
@@ -25,11 +32,25 @@ class BuyItemPolicy
         //
     } */
 
+    /**
+     * ユーザー自身が購入登録した商品のみ編集、更新が可能
+     *
+     * @param User $user
+     * @param BuyItem $buyItem
+     * @return void
+     */
     public function update(User $user, BuyItem $buyItem)
     {
         return $user->id === $buyItem->user_id;
     }
 
+    /**
+     * ユーザー自身が購入登録した商品のみ削除可能
+     *
+     * @param User $user
+     * @param BuyItem $buyItem
+     * @return void
+     */
     public function delete(User $user, BuyItem $buyItem)
     {
         return $user->id === $buyItem->user_id;

@@ -2,11 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
 
 class ItemRepository implements RepositoryInterface
 {
+    /**
+     * ユーザーに紐づく商品の取得
+     *
+     * @return void
+     */
     public function getAll()
     {
         $items = Auth::user()->items()

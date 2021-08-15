@@ -14,11 +14,25 @@ class UserPolicy
         //
     } */
 
+    /**
+     * 自身の詳細のみ閲覧可能
+     *
+     * @param User $user
+     * @param User $model
+     * @return void
+     */
     public function view(User $user, User $model)
     {
         return $user->id === $model->id;
     }
 
+    /**
+     * 自身の編集、更新のみ可能
+     *
+     * @param User $user
+     * @param User $model
+     * @return void
+     */
     public function update(User $user, User $model)
     {
         return $user->id === $model->id;
