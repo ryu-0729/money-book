@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('ようこそ') }}</div>
 
                 <div class="card-body">
-                    <h5 class="card-title">{{ __('Money-Bookへ') }}</h5>
+                    <h5 class="card-title">{{ config('app.name', 'Laravel') }}{{ __('へ') }}</h5>
                     @guest
                         <p class="card-text">{{ __('ログインまたは新規登録をしてください') }}</p>
                         <a class="btn btn-primary" href="{{ route('login') }}">{{ __('Login') }}</a>
