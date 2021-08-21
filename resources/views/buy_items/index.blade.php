@@ -9,6 +9,7 @@
 
             <h2>
                 <a class="btn btn-outline-success" href="{{ route('monies') }}">{{ __('金額集計ページへ') }}</a>
+                <a class="btn btn-outline-success" href="{{ route('buy_items.create') }}">{{ __('購入商品登録') }}</a>
             </h2>
 
             <table class="table table-striped">
