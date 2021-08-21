@@ -22,7 +22,6 @@ class BuyItemRepository implements RepositoryInterface
         return $buyItems;
     }
 
-    // 
     /**
      * 検索月からその月のデータの取得
      *
