@@ -27,7 +27,7 @@
                         <p class="card-text">登録されているタグはありません</p>
                     @endforelse
 
-                    <a href="{{ route('items.edit', $item->id) }}" class="btn btn-primary">{{ __('編集') }}</a>
+                    <a href="{{ route('items.edit', $item->id) }}" class="btn btn-primary" style="margin-bottom: 10px;">{{ __('編集') }}</a>
                     {!! Form::open(['action' => ['ItemController@destroy', $item->id], 'method' => 'delete']) !!}
                         {{ Form::submit('登録商品を削除', ['class' => 'btn btn-danger']) }}
                     {!! Form::close() !!}

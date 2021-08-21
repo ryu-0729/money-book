@@ -5,16 +5,33 @@
 	<div class="row justify-content-center">
 		<div class="col-md-8">
 			<div class="input-group">
-				<div class="form-outline">
-					{!! Form::open(['action' => ['Money'], 'method' => 'get']) !!}
-						{{ Form::select('month', $buyItemMonth, '', ['class' => 'form-control']) }}
-						{{ Form::select('tagId', $selectTagNames, '', ['class' => 'form-control']) }}
-						{{ Form::submit('金額集計', ['class' => 'btn btn-success']) }}
+				<div class="form-outline" style="margin-left: 20px;">
+					{!! Form::open(['action' => ['Money'], 'method' => 'get', 'class' => 'form-inline']) !!}
+						<div class="form-group row">
+							{{ Form::label('month', '購入月：', ['class' => 'form-label']) }}
+
+							<div style="margin-right: 50px;">
+								{{ Form::select('month', $buyItemMonth, '', ['class' => 'form-control']) }}
+							</div>
+						</div>
+
+						<div class="form-group row" style="margin-right: 50px;">
+							{{ Form::label('tagId', 'タグ名：', ['class' => 'form-label']) }}
+							<div>
+							{{ Form::select('tagId', $selectTagNames, '', ['class' => 'form-control']) }}
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<div>
+								{{ Form::submit('金額集計', ['class' => 'btn btn-success']) }}
+							</div>
+						</div>
 					{!! Form::close() !!}
 				</div>
 			</div>
 
-			<h1>{{ __('合計金額は') }}{{ $totalPrice }}{{ __('円') }}</h1>
+			<h1 style="margin-top: 20px;">{{ __('合計金額は') }}{{ $totalPrice }}{{ __('円') }}</h1>
 
 			<h2>
 				@if ($month)

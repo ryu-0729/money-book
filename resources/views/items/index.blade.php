@@ -9,6 +9,7 @@
 
             <h2>
                 <a class="btn btn-outline-success" href="{{ route('items.create') }}">{{ __('商品登録') }}</a>
+                <a class="btn btn-outline-success" href="{{ route('item_tags.create') }}">{{ __('タグ登録') }}</a>
             </h2>
 
             <table class="table table-striped">
