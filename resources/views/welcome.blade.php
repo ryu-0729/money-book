@@ -43,7 +43,7 @@
             </div>
 
             <div class="card" style="margin-bottom: 20px;">
-            <img src="{{ asset('images/金額集計.png') }}" class="rounded mx-auto d-block" width="100%" height="400">
+            <img src="{{ asset('images/金額集計ページ.png') }}" class="rounded mx-auto d-block" width="100%" height="500">
                 <div class="card-body">
                     <h5 class="card-title">3.金額集計</h5>
                     <p class="card-text">金額集計したい月を選択して金額集計ボタンをクリック！</p>
