@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\BuyItem; // BuyItemをインポート
 use App\Repositories\BuyItemRepository;
 use App\Repositories\ItemTagRepository;
 
 class Money extends Controller
 {
-    private $buyItem;
     private $buyItemRepository;
     private $itemTagRepository;
 
-    public function __construct(BuyItem $buyItem, BuyItemRepository $buyItemRepository, ItemTagRepository $itemTagRepository)
+    public function __construct(BuyItemRepository $buyItemRepository, ItemTagRepository $itemTagRepository)
     {
-        $this->buyItem = $buyItem;
         $this->buyItemRepository = $buyItemRepository;
         $this->itemTagRepository = $itemTagRepository;
     }
@@ -28,7 +25,7 @@ class Money extends Controller
      */
     public function __invoke(Request $request)
     {
-        $buyItemMonth = $this->buyItem->getBuyItemMonth();
+        $buyItemMonth = $this->buyItemRepository->getBuyItemMonth();
         $selectTagNames = $this->itemTagRepository->getTagNames();
         // タグの選択の有無
         if ($request->tagId) {
@@ -38,7 +35,7 @@ class Money extends Controller
             $tagName = '';
         }
 
-        $buyItems = $this->buyItemRepository->getBuyItemDataSearchMonth($request->month, $tagName);
+        $buyItems = $this->buyItemRepository->getBuyItemDataSearchMonthAndTagName($request->month, $tagName);
         $totalPrice = $this->buyItemRepository->getTotalPrice($request->month, $tagName);
         $month = $request->month;
 

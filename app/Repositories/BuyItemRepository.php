@@ -24,16 +24,17 @@ class BuyItemRepository implements RepositoryInterface
 
     /**
      * 検索月からその月のデータの取得
+     * タグ名でのデータ取得も可能
      *
      * @param $month
      * @return array $buyItems
      */
-    public function getBuyItemDataSearchMonth($month, $tagName = null)
+    public function getBuyItemDataSearchMonthAndTagName($month, $tagName = null)
     {
         $buyItems = Auth::user()->buyItems()
             ->select('id', 'name', 'quantity', 'price', 'month', 'item_tag_name', 'updated_at')
             ->sortable()
-            ->searchMonth($month, $tagName)
+            ->searchMonthAndTagName($month, $tagName)
             ->latest('updated_at')
             ->paginate(20);
 
@@ -50,7 +51,7 @@ class BuyItemRepository implements RepositoryInterface
     public function getTotalPrice($month, $tagName = null)
     {
         $price = Auth::user()->buyItems()
-            ->searchMonth($month, $tagName)->get(['price', 'month'])->sum('price');
+            ->searchMonthAndTagName($month, $tagName)->get(['price', 'month'])->sum('price');
 
         return $price;
     }
@@ -68,5 +69,24 @@ class BuyItemRepository implements RepositoryInterface
             ->get(['id', 'name']);
 
         return $buyItems;
+    }
+
+    /**
+     * 購入商品の購入月を配列で取得
+     * 金額集計ページで使用
+     *
+     * @return array $buyMonth
+     */
+    public function getBuyItemMonth()
+    {
+        $buyItems = Auth::user()->buyItems()->get('month');
+
+        $buyMonth = [0 => ''];
+        foreach ($buyItems as $buyItem) {
+            $buyMonth[$buyItem->month] = $buyItem->month;
+        }
+        asort($buyMonth);
+
+        return $buyMonth;
     }
 }
