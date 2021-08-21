@@ -53,37 +53,21 @@ class BuyItem extends Model
     }
 
     /**
-     * ユーザーが登録した購入商品の月を配列で取得
-     *
-     * @return void
-     */
-    public function getBuyItemMonth()
-    {
-        $buyItems = Auth::user()->buyItems()->get('month');
-
-        $buyItemMonth = [];
-
-        foreach ($buyItems as $month) {
-            $buyItemMonth[$month->month] = $month->month;
-        }
-
-        return $buyItemMonth;
-    }
-
-    /**
      * リクエストされた月からデータを絞り込むクエリスコープ
      *
-     * @param [type] $query
-     * @param [type] $month
-     * @param [type] $tagName
+     * @param $query
+     * @param $month
+     * @param $tagName
      * @return void
      */
-    public function scopeSearchMonth($query, $month, $tagName = null)
+    public function scopeSearchMonthAndTagName($query, $month, $tagName = '')
     {
         if (!empty($month) && !empty($tagName)) {
             return $query->where('month', $month)->where('item_tag_name', $tagName);
         } elseif (!empty($month)) {
             return $query->where('month', $month);
+        } elseif (!empty($tagName)) {
+            return $query->where('item_tag_name', $tagName);
         }
     }
 }
