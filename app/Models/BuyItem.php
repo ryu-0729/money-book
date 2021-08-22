@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth; // ログインユーザーを取得したいため追記
 use Kyslik\ColumnSortable\Sortable; // ソート機能
 
 class BuyItem extends Model
