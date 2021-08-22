@@ -25,4 +25,6 @@ Route::middleware(['auth'])->group(function () {
     ]);
     // 金額集計ページのルート
     Route::get('monies', 'Money')->name('monies');
+    // 最近の購入登録履歴
+    Route::get('buy_item_history', 'BuyItemHistory')->name('history');
 });

@@ -89,4 +89,39 @@ class BuyItemRepository implements RepositoryInterface
 
         return $buyMonth;
     }
+
+    /**
+     * 購入商品を昇順または降順で取得する数を決め取得する
+     * 取得するカラムの指定可能
+     *
+     * @param array $col
+     * @param string $orderBy
+     * @param int $limit
+     * @return array $buyItemHistory
+     */
+    public function getBuyItemHistory(array $col, string $orderBy, int $limit)
+    {
+        $buyItemHistory = Auth::user()->buyItems()
+            ->orderBy('updated_at', $orderBy)
+            ->limit($limit)->get($col);
+
+        return $buyItemHistory;
+    }
+
+    /**
+     * 購入商品を昇順または降順で単一取得する
+     * 取得カラムの指定可能
+     *
+     * @param array $col
+     * @param string $orderBy
+     * @return void $firstBuyItemHistory
+     */
+    public function getFirstBuyItemHistory(array $col, string $orderBy)
+    {
+        $firstBuyItemHistory = Auth::user()->buyItems()
+            ->orderBy('updated_at', $orderBy)
+            ->firstOrFail($col);
+
+        return $firstBuyItemHistory;
+    }
 }
