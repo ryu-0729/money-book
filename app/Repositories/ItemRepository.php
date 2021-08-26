@@ -33,6 +33,7 @@ class ItemRepository implements RepositoryInterface
         // ユーザーの登録した商品の取得
         $userItems = $this->getAll();
 
+        $itemData = [];
         foreach ($userItems as $item) {
             foreach ($item->itemTags as $tag) {
                 // 商品名をキーとしてタグの取得
@@ -40,6 +41,7 @@ class ItemRepository implements RepositoryInterface
             }
         }
 
+        $tagName = '';
         // $itemDataから一致するタグの取得
         for ($i = 0; $i < count($itemData); $i++) {
             $searchItemName = array_flip($itemData[$i]);
