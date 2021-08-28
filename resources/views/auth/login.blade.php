@@ -30,6 +30,10 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <label>
+                                    <input type="checkbox" id="dispPassword">
+                                    {{ __('パスワードの表示') }}
+                                </label>
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -70,4 +74,15 @@
         </div>
     </div>
 </div>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        $('#dispPassword').on('change', function() {
+            if ($('#dispPassword').prop('checked')) {
+                $('#password').attr('type', 'text');
+            } else {
+                $('#password').attr('type', 'password');
+            }
+        });
+    });
+</script>
 @endsection
