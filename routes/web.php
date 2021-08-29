@@ -19,6 +19,10 @@ Route::middleware(['auth'])->group(function () {
         // UserGoalのリソースルート
         'user_goals' => 'UserGoalController',
     ]);
+    // 複数商品へのタグの選択
+    Route::get('item_tags/multiple_tag', 'ItemTagController@multiple')->name('multiple');
+    // 複数商品へのタグ更新
+    Route::put('item_tags/multiple_tag', 'ItemTagController@multipleTagsUpdate');
     // 商品タグルート(詳細は不要)
     Route::resource('item_tags', 'ItemTagController')->except([
         'show',

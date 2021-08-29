@@ -10,7 +10,7 @@
                 </div>
             @endif
 
-            <div class="card">
+            <div class="card text-center">
                 <div class="card-header">
                     {{ __('購入商品詳細') }}
                     <a class="btn btn-outline-success" style="margin-left: 20px;" href="{{ route('buy_items.index') }}">{{ __('購入商品一覧へ') }}</a>
