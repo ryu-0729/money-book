@@ -22,6 +22,21 @@ class ItemRepository implements RepositoryInterface
     }
 
     /**
+     * ユーザーに紐づく商品の取得
+     * ページネーションの指定はなし
+     *
+     * @param $col
+     * @return void
+     */
+    public function getAllNonPaginate($col)
+    {
+        $items = Auth::user()->items()
+            ->get($col);
+
+        return $items;
+    }
+
+    /**
      * 購入商品と同じ商品名のタグを取得
      * 購入商品登録、更新で使用
      *
@@ -53,5 +68,20 @@ class ItemRepository implements RepositoryInterface
         }
 
         return $tagName;
+    }
+
+    /**
+     * 商品IDから商品の取得
+     *
+     * @param integer $itemId
+     * @return void
+     */
+    public function getItemByItemId(int $itemId)
+    {
+        $item = Auth::user()->items()
+            ->where('id', $itemId)
+            ->firstOrFail();
+
+        return $item;
     }
 }
