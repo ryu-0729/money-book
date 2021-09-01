@@ -16,7 +16,7 @@ class ItemTagRepository implements RepositoryInterface
         $itemTags = Auth::user()->itemTags()
             ->select('id', 'tag_name', 'updated_at')
             ->latest('updated_at')
-            ->paginate(20);
+            ->paginate(config('paginate.pagination'));
 
         return $itemTags;
     }

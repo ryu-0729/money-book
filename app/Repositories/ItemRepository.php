@@ -17,7 +17,8 @@ class ItemRepository implements RepositoryInterface
             ->select('id', 'name', 'price', 'updated_at')
             ->sortable()
             ->latest('updated_at')
-            ->paginate(20);
+            ->paginate(config('paginate.pagination'));
+
         return $items;
     }
 
