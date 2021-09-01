@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\BuyItem;
 use App\Repositories\BuyItemRepository; // BuyItemRepositoryを使用
 use App\Repositories\ItemRepository; // ItemRepositoryを利用
-use App\Models\Item;
 use App\Http\Requests\StoreBuyItem; // StoreBuyItemバリデーションを利用
 use App\Http\Requests\UpdateBuyItem; // UpdateBuyItemバリデーションを利用
 use Illuminate\Support\Facades\Auth; // ログインユーザーを取得したいため追記
@@ -13,13 +12,11 @@ use Illuminate\Support\Facades\Auth; // ログインユーザーを取得した�
 class BuyItemController extends Controller
 {
     private $buyItemRepository;
-    private $item;
     private $itemRepository;
 
-    public function __construct(BuyItemRepository $buyItemRepository, Item $item, ItemRepository $itemRepository)
+    public function __construct(BuyItemRepository $buyItemRepository, ItemRepository $itemRepository)
     {
         $this->buyItemRepository = $buyItemRepository;
-        $this->item = $item;
         $this->itemRepository = $itemRepository;
     }
 
@@ -37,7 +34,7 @@ class BuyItemController extends Controller
 
     public function create()
     {
-        $itemsName = $this->item->getAuthUserItems();
+        $itemsName = $this->itemRepository->getAuthUserItems();
         return view('buy_items.create', compact('itemsName'));
     }
 
@@ -61,7 +58,7 @@ class BuyItemController extends Controller
         $buyItem = $authUser->buyItems()->create([
             'name' => $request->name,
             'quantity' => $request->quantity,
-            'price' => $this->item->getPrice($request->name, $request->quantity),
+            'price' => $this->itemRepository->getPrice($request->name, $request->quantity),
             'month' => $request->month,
             'item_tag_name' => $tagName,
         ]);
@@ -91,7 +88,8 @@ class BuyItemController extends Controller
     public function edit(BuyItem $buyItem)
     {
         $this->authorize($buyItem);
-        $itemsName = $this->item->getAuthUserItems();
+        $itemsName = $this->itemRepository->getAuthUserItems();
+
         return view('buy_items.edit', compact('buyItem', 'itemsName'));
     }
 
@@ -115,7 +113,7 @@ class BuyItemController extends Controller
         $buyItem->update([
             'name' => $request->name,
             'quantity' => $request->quantity,
-            'price' => $this->item->getPrice($request->name, $request->quantity),
+            'price' => $this->itemRepository->getPrice($request->name, $request->quantity),
             'month' => $request->month,
             'item_tag_name' => $tagName
         ]);

@@ -85,4 +85,42 @@ class ItemRepository implements RepositoryInterface
 
         return $item;
     }
+
+    /**
+     * ユーザーが登録した商品の名前を配列で取得
+     * Models/Itemから移管
+     *
+     * @return void
+     */
+    public function getAuthUserItems()
+    {
+        $items = $this->getAllNonPaginate('name');
+
+        $itemsName = [];
+
+        foreach ($items as $item) {
+            $itemsName[$item->name] = $item->name;
+        }
+
+        return $itemsName;
+    }
+
+    /**
+     * 購入商品登録、更新で金額を計算する
+     * Models/Itemから移管
+     *
+     * @param $name
+     * @param $quantity
+     * @return void
+     */
+    public function getPrice($name, $quantity)
+    {
+        $getItemPrice = Auth::user()->items()->where('name', $name)
+            ->firstOrFail('price');
+
+        $price = $getItemPrice->price * $quantity;
+
+        dd($price);
+        return $price;
+    }
 }
