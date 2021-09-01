@@ -120,7 +120,6 @@ class ItemRepository implements RepositoryInterface
 
         $price = $getItemPrice->price * $quantity;
 
-        dd($price);
         return $price;
     }
 }
