@@ -52,8 +52,8 @@ class StoreItemTag extends FormRequest
     {
         return [
             'tag_name.required' => 'タグ名は必須です',
-            'tag_name.string' => 'タグ名は文字でお願いします',
-            'tag_name.max' => 'タグ名は30文字以内でお願いします',
+            'tag_name.string'   => 'タグ名は文字でお願いします',
+            'tag_name.max'      => 'タグ名は30文字以内でお願いします',
         ];
     }
 }
