@@ -17,7 +17,7 @@ class BuyItemRepository implements RepositoryInterface
             ->select('id', 'name', 'quantity', 'price', 'month', 'item_tag_name', 'updated_at')
             ->sortable()
             ->latest('updated_at')
-            ->paginate(20);
+            ->paginate(config('paginate.pagination'));
 
         return $buyItems;
     }
@@ -36,7 +36,7 @@ class BuyItemRepository implements RepositoryInterface
             ->sortable()
             ->searchMonthAndTagName($month, $tagName)
             ->latest('updated_at')
-            ->paginate(20);
+            ->paginate(config('paginate.pagination'));
 
         return $buyItems;
     }

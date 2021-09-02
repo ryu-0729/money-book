@@ -45,14 +45,7 @@ class ItemController extends Controller
     public function create()
     {
         // ユーザーに紐づくタグの取得
-        $itemTags = $this->itemTagRepository->getAll();
-        // 取得したタグからタグ名を配列にする
-        $tagName = [
-            0 => ''
-        ];
-        foreach ($itemTags as $tag) {
-            $tagName[$tag->id] = $tag->tag_name;
-        }
+        $tagName = $this->itemTagRepository->getTagNames();
 
         return view('items.create', compact('tagName'));
     }
@@ -110,14 +103,7 @@ class ItemController extends Controller
     {
         $this->authorize($item);
         // ユーザーに紐づくタグの取得
-        $itemTags = $this->itemTagRepository->getAll();
-        // 取得したタグからタグ名を配列にする
-        $tagName = [
-            0 => ''
-        ];
-        foreach ($itemTags as $tag) {
-            $tagName[$tag->id] = $tag->tag_name;
-        }
+        $tagName = $this->itemTagRepository->getTagNames();
 
         return view('items.edit', compact('item', 'tagName'));
     }
