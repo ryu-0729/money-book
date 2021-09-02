@@ -140,7 +140,7 @@ class ItemController extends Controller
                 // 商品名とタグの更新がある場合
                 foreach ($buyItems as $buyItem) {
                     BuyItem::where('id', $buyItem->id)->update([
-                        'name' => $request->name,
+                        'name'          => $request->name,
                         'item_tag_name' => $tagName->tag_name,
                     ]);
                 }
