@@ -53,6 +53,14 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            {{ Form::label('price', '金額入力', ['class' => 'col-md-4 col-form-label text-md-right']) }}
+
+                            <div class="col-md-6">
+                                {{ Form::number('price', '', ['class' => 'form-control']) }}
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 {{ Form::submit('購入商品登録', ['class' => 'btn btn-primary']) }}
