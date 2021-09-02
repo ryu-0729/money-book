@@ -25,7 +25,7 @@ class MultipleItemTag extends FormRequest
     {
         return [
             'tag_id' => ['required'],
-            'item' => ['required'],
+            'item'   => ['required'],
         ];
     }
 
@@ -38,7 +38,7 @@ class MultipleItemTag extends FormRequest
     {
         return [
             'tag_id.required' => 'タグの選択をしてください',
-            'item.required' => '商品を選択してください',
+            'item.required'   => '商品を選択してください',
         ];
     }
 }

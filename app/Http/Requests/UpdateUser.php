@@ -52,9 +52,9 @@ class UpdateUser extends FormRequest
     {
         return [
             'name.required' => '名前は必須項目です',
-            'name.string' => '名前は文字でお願いします',
-            'name.max' => '名前は255文字以内でお願いします',
-            'name.unique' => '他のユーザーが既に使用しているユーザー名です',
+            'name.string'   => '名前は文字でお願いします',
+            'name.max'      => '名前は255文字以内でお願いします',
+            'name.unique'   => '他のユーザーが既に使用しているユーザー名です',
         ];
     }
 }
