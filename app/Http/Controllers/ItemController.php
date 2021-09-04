@@ -60,16 +60,14 @@ class ItemController extends Controller
      */
     public function store(StoreItem $request)
     {
-        // tag_nameにはタグのidが格納されている
-        $tagId = $request->tag_name;
         $authUser = Auth::user();
 
         try {
             DB::beginTransaction();
             $item = $authUser->items()->create($request->validated());
             // タグ選択がされていた場合、商品タグの中間テーブル登録
-            if ($tagId !== '0') {
-                $item->itemTags()->attach($tagId);
+            if ($request->tagId !== '0') {
+                $item->itemTags()->sync([$request->tagId, $request->subTagId]);
             }
             DB::commit();
         } catch (\Exception $e) {
@@ -119,21 +117,20 @@ class ItemController extends Controller
     public function update(UpdateItem $request, Item $item)
     {
         $this->authorize($item);
-        $tagId = $request->tag_name;
 
         // 更新する商品と同名の購入商品のデータ取得
         $buyItems = $this->buyItemRepository->getBuyItemsByItemName($item->name);
         // タグ名の取得
-        if ($tagId !== '0') {
-            $tagName = $this->itemTagRepository->getTagNameByRequestTagId($tagId);
+        if ($request->tagId !== '0') {
+            $tagName = $this->itemTagRepository->getTagNameByRequestTagId($request->tagId);
         }
 
         try {
             DB::beginTransaction();
             $item->update($request->validated());
             // タグの選択があればタグの更新、登録をする
-            if ($tagId !== '0') {
-                $item->itemTags()->sync($tagId);
+            if ($request->tagId !== '0') {
+                $item->itemTags()->sync([$request->tagId, $request->subTagId]);
             }
 
             if (!empty($buyItems) && !empty($tagName)) {
