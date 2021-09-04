@@ -144,7 +144,8 @@ class ItemTagController extends Controller
                     // 購入商品にも同名の購入商品登録がされていた場合、item_tag_nameの更新をする
                     foreach ($buyItems as $buyItem) {
                         BuyItem::where('id', $buyItem->id)->update([
-                            'item_tag_name' => $tagName->tag_name,
+                            'item_tag_name'     => $tagName->tag_name,
+                            'sub_item_tag_name' => null,
                         ]);
                     }
                 }
