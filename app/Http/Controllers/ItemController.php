@@ -159,8 +159,8 @@ class ItemController extends Controller
                 // 購入商品名と商品タグの更新
                 foreach ($buyItems as $buyItem) {
                     BuyItem::where('id', $buyItem->id)->update([
-                        'name'              => $request->name,
-                        'item_tag_name'     => $tagName->tag_name,
+                        'name'          => $request->name,
+                        'item_tag_name' => $tagName->tag_name,
                     ]);
                 }
             } elseif (!empty($buyItems)) {
