@@ -32,7 +32,7 @@ class BuyItemRepository implements RepositoryInterface
     public function getBuyItemDataSearchMonthAndTagName($month, $tagName = null)
     {
         $buyItems = Auth::user()->buyItems()
-            ->select('id', 'name', 'quantity', 'price', 'month', 'item_tag_name', 'updated_at')
+            ->select('id', 'name', 'quantity', 'price', 'month', 'item_tag_name', 'sub_item_tag_name', 'updated_at')
             ->sortable()
             ->searchMonthAndTagName($month, $tagName)
             ->latest('updated_at')
