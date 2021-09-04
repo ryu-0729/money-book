@@ -65,10 +65,15 @@ class ItemController extends Controller
         try {
             DB::beginTransaction();
             $item = $authUser->items()->create($request->validated());
-            // タグ選択がされていた場合、商品タグの中間テーブル登録
-            if ($request->tagId !== '0') {
+
+            if ($request->tagId !== '0' && $request->subTagId !== '0') {
+                // 商品タグとサブタグが選択されている場合
                 $item->itemTags()->sync([$request->tagId, $request->subTagId]);
+            } elseif ($request->tagId !== '0') {
+                // 商品タグのみのが選択
+                $item->itemTags()->sync($request->tagId);
             }
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -124,21 +129,38 @@ class ItemController extends Controller
         if ($request->tagId !== '0') {
             $tagName = $this->itemTagRepository->getTagNameByRequestTagId($request->tagId);
         }
+        // サブタグ名の取得
+        if ($request->subTagId !== '0') {
+            $subTagName = $this->itemTagRepository->getTagNameByRequestTagId($request->subTagId);
+        }
 
         try {
             DB::beginTransaction();
             $item->update($request->validated());
-            // タグの選択があればタグの更新、登録をする
-            if ($request->tagId !== '0') {
+
+            if ($request->tagId !== '0' && $request->subTagId !== '0') {
+                // 商品タグとサブタグ両方の登録
                 $item->itemTags()->sync([$request->tagId, $request->subTagId]);
+            } elseif ($request->tagId !== '0') {
+                // 商品タグのみの登録
+                $item->itemTags()->sync($request->tagId);
             }
 
-            if (!empty($buyItems) && !empty($tagName)) {
-                // 商品名とタグの更新がある場合
+            if (!empty($buyItems) && (!empty($tagName) && !empty($subTagName))) {
+                // 購入商品名とタグの更新がある場合（サブタグも含む）
                 foreach ($buyItems as $buyItem) {
                     BuyItem::where('id', $buyItem->id)->update([
-                        'name'          => $request->name,
-                        'item_tag_name' => $tagName->tag_name,
+                        'name'              => $request->name,
+                        'item_tag_name'     => $tagName->tag_name,
+                        'sub_item_tag_name' => $subTagName->tag_name,
+                    ]);
+                }
+            } elseif (!empty($buyItems) && !empty($tagName)) {
+                // 購入商品名と商品タグの更新
+                foreach ($buyItems as $buyItem) {
+                    BuyItem::where('id', $buyItem->id)->update([
+                        'name'              => $request->name,
+                        'item_tag_name'     => $tagName->tag_name,
                     ]);
                 }
             } elseif (!empty($buyItems)) {

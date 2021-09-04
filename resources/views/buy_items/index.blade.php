@@ -20,6 +20,7 @@
                         <th scope="col">@sortablelink('price', '合計金額')</th>
                         <th scope="col">@sortablelink('month', '購入月')</th>
                         <th scope="col">商品タグ</th>
+                        <th scope="col">サブタグ</th>
                     </tr>
                 </thead>
 
@@ -33,6 +34,7 @@
                             <th>{{ $item->price }}{{ __('円') }}</th>
                             <th>{{ $item->month }}{{ __('月') }}</th>
                             <th class="text-success">{{ $item->item_tag_name }}</th>
+                            <th class="text-success">{{ $item->sub_item_tag_name }}</th>
                         </tr>
                     @empty
                         <tr>
