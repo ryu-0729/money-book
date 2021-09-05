@@ -32,6 +32,11 @@ class BuyItemController extends Controller
         return view('buy_items.index', compact('userBuyItems'));
     }
 
+    /**
+     * 購入商品登録ページ
+     *
+     * @return void
+     */
     public function create()
     {
         $itemsName = $this->itemRepository->getAuthUserItems();
