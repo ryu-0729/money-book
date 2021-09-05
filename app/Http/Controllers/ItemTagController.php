@@ -88,6 +88,7 @@ class ItemTagController extends Controller
     }
 
     /**
+     * todo 削除時に購入商品で登録されている同名のタグの削除を検討
      * タグ削除処理
      *
      * @param ItemTag $itemTag

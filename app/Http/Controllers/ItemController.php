@@ -185,6 +185,7 @@ class ItemController extends Controller
     }
 
     /**
+     * todo 削除する際、購入商品で同名の商品を削除するか検討
      * 登録商品削除
      *
      * @param Item $item
@@ -194,6 +195,7 @@ class ItemController extends Controller
     {
         $this->authorize($item);
         $item->delete();
-        return redirect()->route('items.index');
+        return redirect()->route('items.index')
+            ->with('message', $item['name'] . 'を削除しました');
     }
 }

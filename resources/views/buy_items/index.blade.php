@@ -12,6 +12,12 @@
                 <a class="btn btn-outline-success" href="{{ route('buy_items.create') }}">{{ __('購入商品登録') }}</a>
             </h2>
 
+            @if (session('message'))
+                <div class="alert alert-primary" role="alert">
+                    {{ session('message') }}
+                </div>
+            @endif
+
             <table class="table table-striped">
                 <thead>
                     <tr>

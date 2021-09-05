@@ -154,6 +154,7 @@ class BuyItemController extends Controller
     {
         $this->authorize($buyItem);
         $buyItem->delete();
-        return redirect()->route('buy_items.index');
+        return redirect()->route('buy_items.index')
+            ->with('message', $buyItem['name'] . 'を削除しました');
     }
 }
