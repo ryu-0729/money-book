@@ -31,6 +31,7 @@
 
                         <div class="col-md-6">
                             {{ Form::select('tag_id', $itemTags, '', ['class' => 'form-control']) }}
+                            <small class="text-danger">{{ __('サブタグを設定している商品は、サブタグがリセットされます') }}</small>
                         </div>
                     </div>
 
