@@ -18,6 +18,8 @@ class ItemController extends Controller
     private $itemTagRepository;
     private $buyItemRepository;
 
+    const NOT_REQUEST = '0';
+
     public function __construct(ItemRepository $itemRepository, ItemTagRepository $itemTagRepository, BuyItemRepository $buyItemRepository)
     {
         $this->itemRepository = $itemRepository;
@@ -66,10 +68,10 @@ class ItemController extends Controller
             DB::beginTransaction();
             $item = $authUser->items()->create($request->validated());
 
-            if ($request->tagId !== '0' && $request->subTagId !== '0') {
+            if ($request->tagId !== self::NOT_REQUEST && $request->subTagId !== self::NOT_REQUEST) {
                 // 商品タグとサブタグが選択されている場合
                 $item->itemTags()->sync([$request->tagId, $request->subTagId]);
-            } elseif ($request->tagId !== '0') {
+            } elseif ($request->tagId !== self::NOT_REQUEST) {
                 // 商品タグのみのが選択
                 $item->itemTags()->sync($request->tagId);
             }
@@ -126,11 +128,11 @@ class ItemController extends Controller
         // 更新する商品と同名の購入商品のデータ取得
         $buyItems = $this->buyItemRepository->getBuyItemsByItemName($item->name);
         // タグ名の取得
-        if ($request->tagId !== '0') {
+        if ($request->tagId !== self::NOT_REQUEST) {
             $tagName = $this->itemTagRepository->getTagNameByRequestTagId($request->tagId);
         }
         // サブタグ名の取得
-        if ($request->subTagId !== '0') {
+        if ($request->subTagId !== self::NOT_REQUEST) {
             $subTagName = $this->itemTagRepository->getTagNameByRequestTagId($request->subTagId);
         }
 
@@ -138,10 +140,10 @@ class ItemController extends Controller
             DB::beginTransaction();
             $item->update($request->validated());
 
-            if ($request->tagId !== '0' && $request->subTagId !== '0') {
+            if ($request->tagId !== self::NOT_REQUEST && $request->subTagId !== self::NOT_REQUEST) {
                 // 商品タグとサブタグ両方の登録
                 $item->itemTags()->sync([$request->tagId, $request->subTagId]);
-            } elseif ($request->tagId !== '0') {
+            } elseif ($request->tagId !== self::NOT_REQUEST) {
                 // 商品タグのみの登録
                 $item->itemTags()->sync($request->tagId);
             }
