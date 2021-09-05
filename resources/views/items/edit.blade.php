@@ -40,10 +40,18 @@
                         </div>
 
                         <div class="form-group row">
-                            {{ Form::label('tag_name', '商品タグ', ['class' => 'col-md-4 col-form-label text-md-right']) }}
+                            {{ Form::label('tagId', '商品タグ', ['class' => 'col-md-4 col-form-label text-md-right']) }}
 
                             <div class="col-md-6">
-                                {{ Form::select('tag_name', $tagName, '', ['class' => 'form-control']) }}
+                                {{ Form::select('tagId', $tagName, '', ['class' => 'form-control']) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            {{ Form::label('subTagId', 'サブタグ', ['class' => 'col-md-4 col-form-label text-md-right']) }}
+
+                            <div class="col-md-6">
+                                {{ Form::select('subTagId', $tagName, '', ['class' => 'form-control']) }}
                             </div>
                         </div>
 

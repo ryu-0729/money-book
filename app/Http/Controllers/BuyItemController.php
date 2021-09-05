@@ -32,6 +32,11 @@ class BuyItemController extends Controller
         return view('buy_items.index', compact('userBuyItems'));
     }
 
+    /**
+     * 購入商品登録ページ
+     *
+     * @return void
+     */
     public function create()
     {
         $itemsName = $this->itemRepository->getAuthUserItems();
@@ -154,6 +159,7 @@ class BuyItemController extends Controller
     {
         $this->authorize($buyItem);
         $buyItem->delete();
-        return redirect()->route('buy_items.index');
+        return redirect()->route('buy_items.index')
+            ->with('message', $buyItem['name'] . 'を削除しました');
     }
 }

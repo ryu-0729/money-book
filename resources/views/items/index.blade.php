@@ -25,6 +25,7 @@
                         <th scope="col">@sortablelink('name', '商品名')</th>
                         <th scope="col">@sortablelink('price', '商品価格')</th>
                         <th scope="col">{{ __('商品タグ') }}</th>
+                        <th scope="col">{{ __('サブタグ') }}</th>
                     </tr>
                 </thead>
 

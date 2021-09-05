@@ -5,13 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
 
+            <h1>{{ __('登録タグ一覧') }}</h1>
+
             @if (session('message'))
                 <div class="alert alert-primary" role="alert">
                     {{ session('message') }}
                 </div>
             @endif
 
-            <h1>{{ __('登録タグ一覧') }}</h1>
             <h2>
                 <a class="btn btn-outline-success" href="{{ route('item_tags.create') }}">タグ追加</a>
             </h2>
