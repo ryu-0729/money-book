@@ -53,30 +53,68 @@ class BuyItemController extends Controller
     {
         $authUser = Auth::user();
 
-        // 購入商品と同名の商品タグ名を取得
-        $tagName = $this->itemRepository->getItemTagNameByBuyItemName($request->name);
-        // タグが存在しない場合はnullで登録する
-        if (empty($tagName)) {
-            $tagName = null;
-        }
+        // 購入商品と同名の商品タグ名を配列で取得
+        $tagNames = $this->itemRepository->getItemTagNameByBuyItemName($request->name);
 
-        if ($request->price) {
-            // 金額の手入力があった場合
-            $buyItem = $authUser->buyItems()->create([
-                'name'          => $request->name,
-                'quantity'      => $request->quantity,
-                'price'         => $request->price,
-                'month'         => $request->month,
-                'item_tag_name' => $tagName,
-            ]);
+        if (!empty($tagNames[0]) && !empty($tagNames[1])) {
+            // タグとサブタグの両方がある場合
+            if ($request->price) {
+                // 金額の入力がある場合
+                $buyItem = $authUser->buyItems()->create([
+                    'name'              => $request->name,
+                    'quantity'          => $request->quantity,
+                    'price'             => $request->price,
+                    'month'             => $request->month,
+                    'item_tag_name'     => $tagNames[0],
+                    'sub_item_tag_name' => $tagNames[1],
+                ]);
+            } else {
+                $buyItem = $authUser->buyItems()->create([
+                    'name'              => $request->name,
+                    'quantity'          => $request->quantity,
+                    'price'             => $this->itemRepository->getPrice($request->name, $request->quantity),
+                    'month'             => $request->month,
+                    'item_tag_name'     => $tagNames[0],
+                    'sub_item_tag_name' => $tagNames[1],
+                ]);
+            }
+        } elseif (!empty($tagNames[0])) {
+            // タグのみがある場合
+            if ($request->price) {
+                // 金額入力あり
+                $buyItem = $authUser->buyItems()->create([
+                    'name'          => $request->name,
+                    'quantity'      => $request->quantity,
+                    'price'         => $request->price,
+                    'month'         => $request->month,
+                    'item_tag_name' => $tagNames[0],
+                ]);
+            } else {
+                $buyItem = $authUser->buyItems()->create([
+                    'name'          => $request->name,
+                    'quantity'      => $request->quantity,
+                    'price'         => $this->itemRepository->getPrice($request->name, $request->quantity),
+                    'month'         => $request->month,
+                    'item_tag_name' => $tagNames[0],
+                ]);
+            }
         } else {
-            $buyItem = $authUser->buyItems()->create([
-                'name'          => $request->name,
-                'quantity'      => $request->quantity,
-                'price'         => $this->itemRepository->getPrice($request->name, $request->quantity),
-                'month'         => $request->month,
-                'item_tag_name' => $tagName,
-            ]);
+            if ($request->price) {
+                // 金額入力がある
+                $buyItem = $authUser->buyItems()->create([
+                    'name'     => $request->name,
+                    'quantity' => $request->quantity,
+                    'price'    => $request->price,
+                    'month'    => $request->month,
+                ]);
+            } else {
+                $buyItem = $authUser->buyItems()->create([
+                    'name'     => $request->name,
+                    'quantity' => $request->quantity,
+                    'price'    => $this->itemRepository->getPrice($request->name, $request->quantity),
+                    'month'    => $request->month,
+                ]);
+            }
         }
 
         return redirect()->route('buy_items.create')
@@ -119,30 +157,74 @@ class BuyItemController extends Controller
     public function update(UpdateBuyItem $request, BuyItem $buyItem)
     {
         $this->authorize($buyItem);
-        // 購入商品と同名の商品タグ名を取得
-        $tagName = $this->itemRepository->getItemTagNameByBuyItemName($request->name);
-        // タグが存在しない場合はnullで更新する
-        if (empty($tagName)) {
-            $tagName = null;
-        }
+        // 購入商品と同名の商品タグ名を配列で取得
+        $tagNames = $this->itemRepository->getItemTagNameByBuyItemName($request->name);
 
-        if ($buyItem->price === $request->price) {
-            $buyItem->update([
-                'name'          => $request->name,
-                'quantity'      => $request->quantity,
-                'price'         => $this->itemRepository->getPrice($request->name, $request->quantity),
-                'month'         => $request->month,
-                'item_tag_name' => $tagName
-            ]);
+        if (!empty($tagNames[0]) && !empty($tagNames[1])) {
+            // タグとサブタグの両方がある場合
+            if ($buyItem->price === ((int)$request->price)) {
+                // 金額の入力なし
+                $buyItem->update([
+                    'name'              => $request->name,
+                    'quantity'          => $request->quantity,
+                    'price'             => $this->itemRepository->getPrice($request->name, $request->quantity),
+                    'month'             => $request->month,
+                    'item_tag_name'     => $tagNames[0],
+                    'sub_item_tag_name' => $tagNames[1],
+                ]);
+            } else {
+                // 金額の入力あり
+                $buyItem->update([
+                    'name'              => $request->name,
+                    'quantity'          => $request->quantity,
+                    'price'             => $request->price,
+                    'month'             => $request->month,
+                    'item_tag_name'     => $tagNames[0],
+                    'sub_item_tag_name' => $tagNames[1],
+                ]);
+            }
+        } elseif (!empty($tagNames[0])) {
+            // タグのみがある場合
+            if ($buyItem->price === ((int)$request->price)) {
+                // 金額の入力なし
+                $buyItem->update([
+                    'name'              => $request->name,
+                    'quantity'          => $request->quantity,
+                    'price'             => $this->itemRepository->getPrice($request->name, $request->quantity),
+                    'month'             => $request->month,
+                    'item_tag_name'     => $tagNames[0],
+                    'sub_item_tag_name' => null,
+                ]);
+            } else {
+                // 金額の入力あり
+                $buyItem->update([
+                    'name'              => $request->name,
+                    'quantity'          => $request->quantity,
+                    'price'             => $request->price,
+                    'month'             => $request->month,
+                    'item_tag_name'     => $tagNames[0],
+                    'sub_item_tag_name' => null,
+                ]);
+            }
         } else {
-            // 金額の更新があった場合
-            $buyItem->update([
-                'name'          => $request->name,
-                'quantity'      => $request->quantity,
-                'price'         => $request->price,
-                'month'         => $request->month,
-                'item_tag_name' => $tagName
-            ]);
+            // タグなしの場合
+            if ($buyItem->price === ((int)$request->price)) {
+                // 金額の入力なし
+                $buyItem->update([
+                    'name'     => $request->name,
+                    'quantity' => $request->quantity,
+                    'price'    => $this->itemRepository->getPrice($request->name, $request->quantity),
+                    'month'    => $request->month,
+                ]);
+            } else {
+                // 金額の入力あり
+                $buyItem->update([
+                    'name'     => $request->name,
+                    'quantity' => $request->quantity,
+                    'price'    => $request->price,
+                    'month'    => $request->month,
+                ]);
+            }
         }
 
         return redirect()->route('buy_items.show', [$buyItem])
