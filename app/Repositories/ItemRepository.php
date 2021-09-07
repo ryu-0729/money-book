@@ -42,7 +42,7 @@ class ItemRepository implements RepositoryInterface
      * 購入商品登録、更新で使用
      *
      * @param string $buyItemName
-     * @return void
+     * @return array $tagNames
      */
     public function getItemTagNameByBuyItemName(string $buyItemName)
     {
@@ -57,18 +57,18 @@ class ItemRepository implements RepositoryInterface
             }
         }
 
-        $tagName = '';
+        $tagNames = [];
         // $itemDataから一致するタグの取得
         for ($i = 0; $i < count($itemData); $i++) {
             $searchItemName = array_flip($itemData[$i]);
             $tagName = array_search($buyItemName, $searchItemName, true);
 
             if (!empty($tagName)) {
-                break;
+                $tagNames[] = $tagName;
             }
         }
 
-        return $tagName;
+        return $tagNames;
     }
 
     /**
