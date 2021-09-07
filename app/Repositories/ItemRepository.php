@@ -42,7 +42,7 @@ class ItemRepository implements RepositoryInterface
      * 購入商品登録、更新で使用
      *
      * @param string $buyItemName
-     * @return void
+     * @return array $tagNames
      */
     public function getItemTagNameByBuyItemName(string $buyItemName)
     {
