@@ -27,7 +27,7 @@
                             {{ Form::label('name', '商品名', ['class' => 'col-md-4 col-form-label text-md-right']) }}
 
                             <div class="col-md-6">
-                                {{ Form::select('name', $itemsName, $buyItem->name, ['class' => 'form-control']) }}
+                                {{ Form::text('name', $buyItem->name, ['class' => 'form-control', 'readonly']) }}
                             </div>
                         </div>
 
@@ -43,7 +43,7 @@
                             {{ Form::label('month', '購入月', ['class' => 'col-md-4 col-form-label text-md-right']) }}
 
                             <div class="col-md-6">
-                                {{ Form::number('month', $buyItem->month, ['class' => 'form-control']) }}
+                                {{ Form::text('month', $buyItem->month, ['class' => 'form-control', 'readonly']) }}
                             </div>
                         </div>
 
@@ -52,6 +52,7 @@
 
                             <div class="col-md-6">
                                 {{ Form::number('price', $buyItem->price, ['class' => 'form-control']) }}
+                                <small class="text-danger">{{ __('※金額を手入力したい場合のみ変更してください') }}</small>
                             </div>
                         </div>
 

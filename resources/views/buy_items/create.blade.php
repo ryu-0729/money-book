@@ -58,6 +58,7 @@
 
                             <div class="col-md-6">
                                 {{ Form::number('price', '', ['class' => 'form-control']) }}
+                                <small class="text-danger">{{ __('※金額を手入力したい場合のみ入力してください') }}</small>
                             </div>
                         </div>
 
