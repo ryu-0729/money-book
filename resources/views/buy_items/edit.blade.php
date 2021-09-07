@@ -52,7 +52,7 @@
 
                             <div class="col-md-6">
                                 {{ Form::number('price', $buyItem->price, ['class' => 'form-control']) }}
-                                <small class="text-danger">{{ __('※金額を手入力したい場合のみ入力してください') }}</small>
+                                <small class="text-danger">{{ __('※金額を手入力したい場合のみ変更してください') }}</small>
                             </div>
                         </div>
 
