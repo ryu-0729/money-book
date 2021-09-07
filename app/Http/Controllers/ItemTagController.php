@@ -45,6 +45,7 @@ class ItemTagController extends Controller
     }
 
     /**
+     * todo APIとして非同期処理に利用する
      * タグ登録
      *
      * @param StoreItemTag $request
@@ -55,8 +56,8 @@ class ItemTagController extends Controller
         $authUser = Auth::user();
         $itemTag = $authUser->itemTags()->create($request->validated());
 
-        return redirect()->route('item_tags.create')
-            ->with('message', $itemTag['tag_name'] . 'を追加しました');
+        /* return redirect()->route('item_tags.create')
+            ->with('message', $itemTag['tag_name'] . 'を追加しました'); */
     }
 
     /**
