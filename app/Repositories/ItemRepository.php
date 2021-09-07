@@ -57,18 +57,18 @@ class ItemRepository implements RepositoryInterface
             }
         }
 
-        $tagName = '';
+        $tagNames = [];
         // $itemDataから一致するタグの取得
         for ($i = 0; $i < count($itemData); $i++) {
             $searchItemName = array_flip($itemData[$i]);
             $tagName = array_search($buyItemName, $searchItemName, true);
 
             if (!empty($tagName)) {
-                break;
+                $tagNames[] = $tagName;
             }
         }
 
-        return $tagName;
+        return $tagNames;
     }
 
     /**
