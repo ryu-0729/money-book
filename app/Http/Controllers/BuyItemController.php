@@ -165,20 +165,16 @@ class BuyItemController extends Controller
             if ($buyItem->price === ((int)$request->price)) {
                 // 金額の入力なし
                 $buyItem->update([
-                    'name'              => $request->name,
                     'quantity'          => $request->quantity,
                     'price'             => $this->itemRepository->getPrice($request->name, $request->quantity),
-                    'month'             => $request->month,
                     'item_tag_name'     => $tagNames[0],
                     'sub_item_tag_name' => $tagNames[1],
                 ]);
             } else {
                 // 金額の入力あり
                 $buyItem->update([
-                    'name'              => $request->name,
                     'quantity'          => $request->quantity,
                     'price'             => $request->price,
-                    'month'             => $request->month,
                     'item_tag_name'     => $tagNames[0],
                     'sub_item_tag_name' => $tagNames[1],
                 ]);
@@ -188,20 +184,16 @@ class BuyItemController extends Controller
             if ($buyItem->price === ((int)$request->price)) {
                 // 金額の入力なし
                 $buyItem->update([
-                    'name'              => $request->name,
                     'quantity'          => $request->quantity,
                     'price'             => $this->itemRepository->getPrice($request->name, $request->quantity),
-                    'month'             => $request->month,
                     'item_tag_name'     => $tagNames[0],
                     'sub_item_tag_name' => null,
                 ]);
             } else {
                 // 金額の入力あり
                 $buyItem->update([
-                    'name'              => $request->name,
                     'quantity'          => $request->quantity,
                     'price'             => $request->price,
-                    'month'             => $request->month,
                     'item_tag_name'     => $tagNames[0],
                     'sub_item_tag_name' => null,
                 ]);
@@ -211,18 +203,14 @@ class BuyItemController extends Controller
             if ($buyItem->price === ((int)$request->price)) {
                 // 金額の入力なし
                 $buyItem->update([
-                    'name'     => $request->name,
                     'quantity' => $request->quantity,
                     'price'    => $this->itemRepository->getPrice($request->name, $request->quantity),
-                    'month'    => $request->month,
                 ]);
             } else {
                 // 金額の入力あり
                 $buyItem->update([
-                    'name'     => $request->name,
                     'quantity' => $request->quantity,
                     'price'    => $request->price,
-                    'month'    => $request->month,
                 ]);
             }
         }
