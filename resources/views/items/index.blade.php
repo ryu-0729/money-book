@@ -12,6 +12,7 @@
                 <a class="btn btn-outline-success" href="{{ route('item_tags.create') }}">{{ __('タグ登録') }}</a>
                 <a class="btn btn-outline-success" href="{{ route('multiple') }}">{{ __('複数タグ選択') }}</a>
             </h2>
+            <item-component></item-component>
             <example-component></example-component>
 
             @if (session('message'))
