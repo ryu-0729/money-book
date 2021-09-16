@@ -43,7 +43,11 @@
                             {{ Form::label('tagId', '商品タグ', ['class' => 'col-md-4 col-form-label text-md-right']) }}
 
                             <div class="col-md-6">
-                                {{ Form::select('tagId', $tagName, '', ['class' => 'form-control']) }}
+                                @if (!empty($itemTag))
+                                    {{ Form::select('tagId', $tagName, $itemTag->item_tag_id, ['class' => 'form-control']) }}
+                                @else
+                                    {{ Form::select('tagId', $tagName, '', ['class' => 'form-control']) }}
+                                @endif
                             </div>
                         </div>
 
@@ -51,7 +55,11 @@
                             {{ Form::label('subTagId', 'サブタグ', ['class' => 'col-md-4 col-form-label text-md-right']) }}
 
                             <div class="col-md-6">
-                                {{ Form::select('subTagId', $tagName, '', ['class' => 'form-control']) }}
+                                @if (!empty($subItemTag))
+                                    {{ Form::select('subTagId', $tagName, $subItemTag->item_tag_id, ['class' => 'form-control']) }}
+                                @else
+                                    {{ Form::select('subTagId', $tagName, '', ['class' => 'form-control']) }}
+                                @endif
                             </div>
                         </div>
 
