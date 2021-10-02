@@ -7,6 +7,7 @@ use App\Repositories\BuyItemRepository; // BuyItemRepositoryを使用
 use App\Repositories\ItemRepository; // ItemRepositoryを利用
 use App\Http\Requests\StoreBuyItem; // StoreBuyItemバリデーションを利用
 use App\Http\Requests\UpdateBuyItem; // UpdateBuyItemバリデーションを利用
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // ログインユーザーを取得したいため追記
 
 class BuyItemController extends Controller
@@ -231,5 +232,19 @@ class BuyItemController extends Controller
         $buyItem->delete();
         return redirect()->route('buy_items.index')
             ->with('message', $buyItem['name'] . 'を削除しました');
+    }
+
+    /**
+     * リクエストされた商品の金額を返す
+     *
+     * @param Request $request
+     * @return $item['price']
+     */
+    public function oneItemPrice(Request $request)
+    {
+        // 選択された商品を特定し金額を返す
+        $item = $this->itemRepository->getItemByItemId($request->itemId);
+
+        return $item['price'];
     }
 }

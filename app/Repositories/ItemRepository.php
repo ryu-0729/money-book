@@ -94,12 +94,12 @@ class ItemRepository implements RepositoryInterface
      */
     public function getAuthUserItems()
     {
-        $items = $this->getAllNonPaginate('name');
+        $items = $this->getAllNonPaginate(['id', 'name']);
 
-        $itemsName = [];
+        $itemsName = [0 => ''];
 
         foreach ($items as $item) {
-            $itemsName[$item->name] = $item->name;
+            $itemsName[$item->id] = $item->name;
         }
 
         return $itemsName;
