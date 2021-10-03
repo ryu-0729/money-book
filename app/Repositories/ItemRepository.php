@@ -75,7 +75,7 @@ class ItemRepository implements RepositoryInterface
      * 商品IDから商品の取得
      *
      * @param integer $itemId
-     * @return void
+     * @return $item
      */
     public function getItemByItemId(int $itemId)
     {

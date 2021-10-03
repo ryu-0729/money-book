@@ -30,10 +30,10 @@
                     {!! Form::open(['action' => ['BuyItemController@store'], 'method' => 'post']) !!}
 
                         <div class="form-group row">
-                            {{ Form::label('name', '商品名', ['class' => 'col-md-4 col-form-label text-md-right']) }}
+                            {{ Form::label('itemId', '商品名', ['class' => 'col-md-4 col-form-label text-md-right']) }}
 
                             <div class="col-md-6">
-                                {{ Form::select('name', $itemsName, '', ['class' => 'form-control']) }}
+                                {{ Form::select('itemId', $itemsName, '', ['class' => 'form-control']) }}
                             </div>
                         </div>
 
@@ -84,9 +84,9 @@
 </div>
 <script>
     window.addEventListener('DOMContentLoaded', function() {
-        $('#name').on('change', function() {
+        $('#itemId').on('change', function() {
             // 商品のIDを取得
-            const itemId = $('#name').val();
+            const itemId = $('#itemId').val();
             $.ajax({
                 type : 'GET',
                 url  : 'one_item_price',
