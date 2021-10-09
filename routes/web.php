@@ -11,6 +11,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', 'UserController')->except([
         'create', 'store'
     ]);
+    // 購入商品登録で商品1個あたりの金額取得
+    Route::get('buy_items/one_item_price', 'BuyItemController@oneItemPrice')->name('one_item_price');
     Route::resources([
         // Itemのリソースルート
         'items' => 'ItemController',

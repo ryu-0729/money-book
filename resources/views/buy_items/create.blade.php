@@ -30,10 +30,10 @@
                     {!! Form::open(['action' => ['BuyItemController@store'], 'method' => 'post']) !!}
 
                         <div class="form-group row">
-                            {{ Form::label('name', '商品名', ['class' => 'col-md-4 col-form-label text-md-right']) }}
+                            {{ Form::label('itemId', '商品名', ['class' => 'col-md-4 col-form-label text-md-right']) }}
 
                             <div class="col-md-6">
-                                {{ Form::select('name', $itemsName, '', ['class' => 'form-control']) }}
+                                {{ Form::select('itemId', $itemsName, '', ['class' => 'form-control']) }}
                             </div>
                         </div>
 
@@ -62,6 +62,14 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            {{ Form::label('priceOne', '商品1個あたりの金額', ['class' => 'col-md-4 col-form-label text-md-right']) }}
+
+                            <div class="col-md-6">
+                                {{ Form::text('priceOne', '商品を選択してください', ['class' => 'form-control', 'readonly']) }}
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 {{ Form::submit('購入商品登録', ['class' => 'btn btn-primary']) }}
@@ -74,4 +82,20 @@
         </div>
     </div>
 </div>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        $('#itemId').on('change', function() {
+            // 商品のIDを取得
+            const itemId = $('#itemId').val();
+            $.ajax({
+                type : 'GET',
+                url  : 'one_item_price',
+                data : {itemId : itemId}
+            }).done(function(result) {
+                // 1個当たりの金額フォームに表示
+                $('#priceOne').val(result);
+            });
+        });
+    });
+</script>
 @endsection
