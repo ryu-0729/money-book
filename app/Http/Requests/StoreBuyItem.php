@@ -22,7 +22,7 @@ class StoreBuyItem extends FormRequest
     public function rules()
     {
         return [
-            'name'     => ['required', 'string'],
+            'itemId'     => ['required', 'string'],
             'quantity' => ['required', 'numeric', 'min:1'],
             'month'    => ['required', 'numeric', 'between:1,12'],
             'price'    => ['nullable', 'numeric', 'min:1'],
@@ -37,8 +37,8 @@ class StoreBuyItem extends FormRequest
     public function messages()
     {
         return [
-            'name.required'     => '商品名を選択してください',
-            'name.string'       => '商品名は文字でお願いします',
+            'itemId.required'     => '商品名を選択してください',
+            'itemId.string'       => '商品名は文字でお願いします',
             'quantity.required' => '個数は必須です',
             'quantity.numeric'  => '個数は数字でお願いします',
             'quantity.min'      => '個数が不正な値です',

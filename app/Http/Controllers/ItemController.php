@@ -109,8 +109,23 @@ class ItemController extends Controller
         $this->authorize($item);
         // ユーザーに紐づくタグの取得
         $tagName = $this->itemTagRepository->getTagNames();
+        // 商品に登録されているタグの取得
+        $itemTags = $this->itemTagRepository->getItemTags($item);
 
-        return view('items.edit', compact('item', 'tagName'));
+        if (!empty($itemTags[0])) {
+            // 商品にタグ登録がされている時
+            $itemTag = $itemTags[0];
+        } else {
+            $itemTag = '';
+        }
+        if (!empty($itemTags[1])) {
+            // サブタグの登録がある時
+            $subItemTag = $itemTags[1];
+        } else {
+            $subItemTag = '';
+        }
+
+        return view('items.edit', compact('item', 'tagName', 'itemTag', 'subItemTag'));
     }
 
     /**

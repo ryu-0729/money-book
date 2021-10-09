@@ -7,6 +7,7 @@ use App\Repositories\BuyItemRepository; // BuyItemRepositoryを使用
 use App\Repositories\ItemRepository; // ItemRepositoryを利用
 use App\Http\Requests\StoreBuyItem; // StoreBuyItemバリデーションを利用
 use App\Http\Requests\UpdateBuyItem; // UpdateBuyItemバリデーションを利用
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // ログインユーザーを取得したいため追記
 
 class BuyItemController extends Controller
@@ -53,15 +54,17 @@ class BuyItemController extends Controller
     {
         $authUser = Auth::user();
 
+        // 選択された商品の特定
+        $selectItem = $this->itemRepository->getItemByItemId($request->itemId);
         // 購入商品と同名の商品タグ名を配列で取得
-        $tagNames = $this->itemRepository->getItemTagNameByBuyItemName($request->name);
+        $tagNames = $this->itemRepository->getItemTagNameByBuyItemName($selectItem->name);
 
         if (!empty($tagNames[0]) && !empty($tagNames[1])) {
             // タグとサブタグの両方がある場合
             if ($request->price) {
                 // 金額の入力がある場合
                 $buyItem = $authUser->buyItems()->create([
-                    'name'              => $request->name,
+                    'name'              => $selectItem->name,
                     'quantity'          => $request->quantity,
                     'price'             => $request->price,
                     'month'             => $request->month,
@@ -70,9 +73,9 @@ class BuyItemController extends Controller
                 ]);
             } else {
                 $buyItem = $authUser->buyItems()->create([
-                    'name'              => $request->name,
+                    'name'              => $selectItem->name,
                     'quantity'          => $request->quantity,
-                    'price'             => $this->itemRepository->getPrice($request->name, $request->quantity),
+                    'price'             => $this->itemRepository->getPrice($selectItem->name, $request->quantity),
                     'month'             => $request->month,
                     'item_tag_name'     => $tagNames[0],
                     'sub_item_tag_name' => $tagNames[1],
@@ -83,7 +86,7 @@ class BuyItemController extends Controller
             if ($request->price) {
                 // 金額入力あり
                 $buyItem = $authUser->buyItems()->create([
-                    'name'          => $request->name,
+                    'name'          => $selectItem->name,
                     'quantity'      => $request->quantity,
                     'price'         => $request->price,
                     'month'         => $request->month,
@@ -91,9 +94,9 @@ class BuyItemController extends Controller
                 ]);
             } else {
                 $buyItem = $authUser->buyItems()->create([
-                    'name'          => $request->name,
+                    'name'          => $selectItem->name,
                     'quantity'      => $request->quantity,
-                    'price'         => $this->itemRepository->getPrice($request->name, $request->quantity),
+                    'price'         => $this->itemRepository->getPrice($selectItem->name, $request->quantity),
                     'month'         => $request->month,
                     'item_tag_name' => $tagNames[0],
                 ]);
@@ -102,16 +105,16 @@ class BuyItemController extends Controller
             if ($request->price) {
                 // 金額入力がある
                 $buyItem = $authUser->buyItems()->create([
-                    'name'     => $request->name,
+                    'name'     => $selectItem->name,
                     'quantity' => $request->quantity,
                     'price'    => $request->price,
                     'month'    => $request->month,
                 ]);
             } else {
                 $buyItem = $authUser->buyItems()->create([
-                    'name'     => $request->name,
+                    'name'     => $selectItem->name,
                     'quantity' => $request->quantity,
-                    'price'    => $this->itemRepository->getPrice($request->name, $request->quantity),
+                    'price'    => $this->itemRepository->getPrice($selectItem->name, $request->quantity),
                     'month'    => $request->month,
                 ]);
             }
@@ -231,5 +234,19 @@ class BuyItemController extends Controller
         $buyItem->delete();
         return redirect()->route('buy_items.index')
             ->with('message', $buyItem['name'] . 'を削除しました');
+    }
+
+    /**
+     * リクエストされた商品の金額を返す
+     *
+     * @param Request $request
+     * @return $item['price']
+     */
+    public function oneItemPrice(Request $request)
+    {
+        // 選択された商品を特定し金額を返す
+        $item = $this->itemRepository->getItemByItemId($request->itemId);
+
+        return $item['price'];
     }
 }

@@ -54,4 +54,17 @@ class ItemTagRepository implements RepositoryInterface
 
         return $tagNames;
     }
+
+    /**
+     * 対象の商品に紐ずくタグの取得
+     *
+     * @param $item
+     * @return $itemTags
+     */
+    public function getItemTags($item)
+    {
+        $itemTags = $item->itemTags()->get(['item_tag_id', 'tag_name']);
+
+        return $itemTags;
+    }
 }
