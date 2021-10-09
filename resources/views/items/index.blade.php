@@ -47,10 +47,9 @@
                             <th>{{ __('登録した商品はありません') }}</th>
                         </tr>
                     @endforelse
-
-                    {!! $userItems->appends(\Request::except('page'))->render() !!}
                 </tbody>
             </table>
+            {!! $userItems->appends(\Request::except('page'))->render('pagination::bootstrap-4') !!}
         </div>
     </div>
 </div>
