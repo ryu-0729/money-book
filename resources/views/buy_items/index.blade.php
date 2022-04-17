@@ -48,9 +48,9 @@
                         </tr>
                     @endforelse
 
-                    {!! $userBuyItems->appends(\Request::except('page'))->render() !!}
                 </tbody>
             </table>
+            {!! $userBuyItems->appends(\Request::except('page'))->render('pagination::bootstrap-4') !!}
         </div>
     </div>
 </div>
